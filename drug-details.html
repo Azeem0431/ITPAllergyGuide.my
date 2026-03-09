@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drug Allergy Details | AllergyGuide.my</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; transition: background-color 0.3s, color 0.3s; }
+        .drug-gradient { background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%); }
+        .dark .drug-gradient { background: linear-gradient(135deg, #854d0e 0%, #422006 100%); }
+        
+        .card-shadow { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+        .dark .card-shadow { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5); }
+    </style>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-gray-800 dark:bg-slate-950 dark:text-slate-200">
+<body class="bg-[#F8FAFC] dark:bg-[#020617] text-gray-800 dark:text-slate-300">
+
+
+<div id="sidebarOverlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/50 z-[60] hidden transition-opacity"></div>
+
+<aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-white dark:bg-slate-800 z-[70] shadow-2xl border-r border-slate-200 dark:border-slate-700 transform -translate-x-full transition-transform duration-300 ease-in-out lg:shadow-none font-sans">
+    <div class="p-6 h-full flex flex-col">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-xl font-black text-[#0094D4]">Menu Utama</h2>
+            <button onclick="toggleSidebar()" class="text-gray-400 hover:text-red-500 text-3xl transition focus:outline-none">&times;</button>
+        </div>
+        
+        <nav class="space-y-2 flex-1 overflow-y-auto pr-2 custom-scrollbar">
+            <a href="index.html" class="flex items-center space-x-3 p-3 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-[#0094D4] font-bold transition">
+                <span class="text-lg">›</span>
+                <span>UTAMA</span>
+            </a>
+
+            <div x-data="{ open: false }" class="space-y-1">
+                <button @click="open = !open" class="w-full flex items-center justify-between p-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700 font-bold transition focus:outline-none">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-lg">›</span>
+                        <span>KATEGORI ALAHAN</span>
+                    </div>
+                    <svg :class="open ? 'rotate-180' : ''" class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+
+                <div x-show="open" x-collapse class="pl-9 space-y-2 pb-2">
+                    <a href="food-details.html" class="block text-sm text-gray-500 dark:text-gray-400 hover:text-[#0094D4] transition font-medium">Alahan Makanan</a>
+                    <a href="skin-details.html" class="block text-sm text-gray-500 dark:text-gray-400 hover:text-[#0094D4] transition font-medium">Alahan Kulit</a>
+                    <a href="respiratory-details.html" class="block text-sm text-gray-500 dark:text-gray-400 hover:text-[#0094D4] transition font-medium">Alahan Pernafasan</a>
+                    <a href="pet-details.html" class="block text-sm text-gray-500 dark:text-gray-400 hover:text-[#0094D4] transition font-medium">Alahan Haiwan</a>
+                    <a href="eye-details.html" class="block text-sm text-gray-500 dark:text-gray-400 hover:text-[#0094D4] transition font-medium">Alahan Mata</a>
+                    <a href="drug-details.html" class="block text-sm text-gray-500 dark:text-gray-400 hover:text-[#0094D4] transition font-medium">Alahan Ubat</a>
+                </div>
+            </div>
+
+            <a href="tips-rawatan.html" class="flex items-center space-x-3 p-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700 font-bold transition">
+                <span class="text-lg">›</span>
+                <span>TIPS & RAWATAN</span>
+            </a>
+
+            <a href="admin-dashboard.html" class="flex items-center space-x-3 p-3 rounded-xl text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20 font-bold transition">
+                <span class="text-lg">›</span>
+                <span>ADMIN DASHBOARD</span>
+            </a>
+            
+            <hr class="my-4 border-gray-100 dark:border-slate-700">
+            
+            <div class="pt-2">
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest px-3 mb-2">Kecemasan</p>
+                <a href="emergency-contacts.html" class="flex items-center space-x-3 p-3 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 font-bold transition">
+                    <span>☎️ Hubungi 999</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+</aside>
+
+    <header class="bg-white dark:bg-slate-800 border-b dark:border-slate-700 sticky top-0 z-50 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <button onclick="toggleSidebar()" class="p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg transition focus:outline-none">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+                <h1 class="text-xl md:text-2xl font-black text-[#0094D4] tracking-tight">AllergyGuide.My</h1>
+            </div>
+
+            <nav class="hidden lg:flex items-center space-x-6 font-bold text-gray-600 dark:text-gray-300 text-sm uppercase tracking-wide">
+                <a href="index.html" class="hover:text-[#0094D4]">Utama</a>
+                <a href="categories.html" class="text-[#0094D4] transition">Kategori Alahan</a>
+                <a href="tips-rawatan.html" class="hover:text-[#0094D4] transition">Tips & Rawatan</a>
+            </nav>
+
+            <div class="flex items-center space-x-2 md:space-x-4">
+                <a href="login.html" class="hidden sm:flex items-center gap-1 text-gray-500 hover:text-[#0094D4] transition text-xs font-bold border-r pr-4 dark:border-slate-700">
+                    <span>⚙️</span> ADMIN
+                </a>
+                <button onclick="toggleDarkMode()" class="p-2 rounded-full bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-yellow-400 transition-all">
+                    <svg id="moonIcon" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                </button>
+                <div class="flex bg-gray-100 dark:bg-slate-700 p-1 rounded-full border border-gray-200 dark:border-slate-600">
+                    <a href="#" class="px-2 py-1 rounded-full text-[10px] font-bold bg-white dark:bg-slate-600 text-blue-600 dark:text-blue-400 shadow-sm">BM</a>
+                    <a href="en-drug-details.html" class="px-2 py-1 rounded-full text-[10px] font-bold text-gray-500 dark:text-gray-400">EN</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="drug-gradient py-16 text-white relative overflow-hidden">
+        <div class="max-w-4xl mx-auto px-6 relative z-10">
+            <nav class="flex mb-6 text-xs font-bold text-yellow-100/70 dark:text-yellow-400/50 uppercase tracking-widest">
+                <a href="index.html" class="hover:text-white transition">Utama</a>
+                <span class="mx-2">›</span>
+                <span class="text-white">Alahan Ubat</span>
+            </nav>
+            <h2 class="text-4xl md:text-5xl font-black mb-6 leading-tight dark:text-yellow-100 text-yellow-950">Alahan Ubat:<br>Kenali & Cegah</h2>
+            <p class="text-yellow-900 dark:text-yellow-100/80 text-lg max-w-2xl leading-relaxed font-medium">
+                Tindak balas imun yang serius dan luar jangka terhadap ubat-ubatan tertentu. Ketahui perbezaannya sebelum terlambat.
+            </p>
+        </div>
+        <div class="absolute right-[-50px] bottom-[-20px] opacity-10 text-[200px] font-black leading-none uppercase select-none pointer-events-none">DRUGS</div>
+    </section>
+
+    <main class="max-w-6xl mx-auto px-6 py-12">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            
+            <div class="lg:col-span-2 space-y-12">
+                
+                <div class="bg-white dark:bg-slate-900 rounded-[40px] p-8 card-shadow border border-slate-200 dark:border-slate-800 transition-colors">
+                    <h3 class="text-2xl font-bold mb-8 flex items-center dark:text-white">
+                        <span class="w-10 h-10 bg-yellow-500 text-white rounded-xl flex items-center justify-center mr-4 shadow-lg text-lg">⚖️</span>
+                        Alahan vs Kesan Sampingan
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-6 bg-blue-50 dark:bg-blue-900/20 rounded-3xl border border-blue-100 dark:border-blue-800/50">
+                            <h4 class="font-bold text-blue-800 dark:text-blue-400 mb-2">Kesan Sampingan</h4>
+                            <p class="text-sm text-blue-700 dark:text-blue-300/70 leading-relaxed">Dijangkakan dan biasa berlaku. Contoh: Mengantuk selepas ubat selesema.</p>
+                        </div>
+                        <div class="p-6 bg-red-50 dark:bg-red-900/20 rounded-3xl border border-red-100 dark:border-red-800/50">
+                            <h4 class="font-bold text-red-800 dark:text-red-400 mb-2">Alahan Ubat</h4>
+                            <p class="text-sm text-red-700 dark:text-red-300/70 leading-relaxed">Tindak balas imun luar jangka. Contoh: Ruam gatal, bengkak atau sesak nafas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl card-shadow border-b-4 border-red-500">
+                        <span class="text-red-500 font-black text-[10px] uppercase tracking-widest">Segera</span>
+                        <h4 class="text-lg font-bold mt-2 dark:text-white">Minit ke Jam</h4>
+                        <p class="text-gray-500 dark:text-slate-400 text-xs mt-3 leading-relaxed">Anafilaksis atau gegata (hives). Berlaku sejurus selepas pengambilan.</p>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl card-shadow border-b-4 border-orange-400">
+                        <span class="text-orange-400 font-black text-[10px] uppercase tracking-widest">Lewat</span>
+                        <h4 class="text-lg font-bold mt-2 dark:text-white">Jam ke Hari</h4>
+                        <p class="text-gray-500 dark:text-slate-400 text-xs mt-3 leading-relaxed">Ruam merah atau gatal-gatal. Ambil masa 2-3 hari untuk muncul.</p>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl card-shadow border-b-4 border-purple-500">
+                        <span class="text-purple-500 font-black text-[10px] uppercase tracking-widest">Sangat Lewat</span>
+                        <h4 class="text-lg font-bold mt-2 dark:text-white">1 ke 3 Minggu</h4>
+                        <p class="text-gray-500 dark:text-slate-400 text-xs mt-3 leading-relaxed">Reaksi serius seperti SJS. Melibatkan demam dan kerosakan organ.</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <h3 class="text-2xl font-bold dark:text-white">Ubat Berisiko Tinggi</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="flex items-center p-5 bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 card-shadow">
+                            <div class="text-2xl mr-4">🧫</div>
+                            <div>
+                                <h4 class="font-bold text-sm dark:text-white">Penicillin</h4>
+                                <p class="text-[11px] text-gray-500 dark:text-slate-500">Punca utama alahan antibiotik.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center p-5 bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 card-shadow">
+                            <div class="text-2xl mr-4">💊</div>
+                            <div>
+                                <h4 class="font-bold text-sm dark:text-white">NSAIDs (Tahan Sakit)</h4>
+                                <p class="text-[11px] text-gray-500 dark:text-slate-500">Aspirin, Ibuprofen, Ponstan.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-red-900 dark:bg-red-950 rounded-[40px] p-10 text-white shadow-2xl relative overflow-hidden">
+                    <div class="relative z-10">
+                        <h3 class="text-2xl font-black mb-6">Reaksi Kulit Bahaya (SCAR)</h3>
+                        <p class="text-sm text-red-100 mb-8 max-w-lg">Kecemasan perubatan jika ruam disertai lepuh (blisters) dan demam tinggi. Boleh mengancam nyawa.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <div class="bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl border border-white/20">
+                                <span class="font-bold text-red-200">SJS / TEN</span>
+                            </div>
+                            <div class="bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl border border-white/20">
+                                <span class="font-bold text-red-200">DRESS Syndrome</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute -right-10 -bottom-10 text-9xl opacity-10 rotate-12 pointer-events-none">⚠️</div>
+                </div>
+            </div>
+
+            <div class="space-y-8">
+                
+                <div class="bg-white dark:bg-slate-900 rounded-[32px] p-8 card-shadow border-t-8 border-yellow-500 dark:border-yellow-700 transition-colors">
+                    <h4 class="font-black text-xl mb-4 dark:text-white">Kad Alahan</h4>
+                    <p class="text-xs text-gray-500 dark:text-slate-400 leading-relaxed mb-6">
+                        Anda <strong>WAJIB</strong> memiliki kad alahan fizikal atau rekod digital di <strong>MySejahtera</strong> sebagai rujukan doktor kecemasan.
+                    </p>
+                    <div class="p-5 bg-yellow-50 dark:bg-yellow-900/20 border-2 border-dashed border-yellow-200 dark:border-yellow-800 rounded-2xl">
+                        <div class="flex justify-between items-center mb-2">
+                            <p class="text-[10px] font-black text-yellow-800 dark:text-yellow-500 uppercase">Alert Card</p>
+                            <span class="text-xs">🆔</span>
+                        </div>
+                        <p class="text-[9px] text-yellow-700 dark:text-yellow-600">Allergic to:</p>
+                        <p class="font-black text-base text-red-600 dark:text-red-500 uppercase">PENICILLIN</p>
+                    </div>
+                </div>
+
+                <div class="bg-orange-50 dark:bg-orange-900/10 border border-orange-100 dark:border-orange-900/30 rounded-[32px] p-8 transition-colors">
+                    <h4 class="text-orange-800 dark:text-orange-400 font-bold mb-4 flex items-center text-sm">
+                        <span class="mr-2">🚨</span> Tindakan Kecemasan
+                    </h4>
+                    <ul class="space-y-4 text-[11px] text-orange-900/80 dark:text-orange-300/70 font-medium">
+                        <li class="flex gap-3">
+                            <span class="flex-shrink-0 w-5 h-5 bg-orange-200 dark:bg-orange-900 rounded-full flex items-center justify-center text-[10px]">1</span>
+                            Hentikan ubat serta-merta.
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="flex-shrink-0 w-5 h-5 bg-orange-200 dark:bg-orange-900 rounded-full flex items-center justify-center text-[10px]">2</span>
+                            Ambil gambar reaksi kulit.
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="flex-shrink-0 w-5 h-5 bg-orange-200 dark:bg-orange-900 rounded-full flex items-center justify-center text-[10px]">3</span>
+                            Bawa bungkusan ubat ke hospital.
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="mt-20 pt-12 border-t dark:border-slate-800 flex flex-col items-center">
+            <h3 class="text-2xl font-bold mb-8 dark:text-white">Apa Langkah Seterusnya?</h3>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="rawatan-lanjut.html" class="px-10 py-4 bg-yellow-600 text-white rounded-full font-bold shadow-lg hover:bg-yellow-700 transition transform hover:scale-105">Pilihan Alternatif</a>
+                <a href="categories.html" class="px-10 py-4 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 rounded-full font-bold hover:bg-slate-50 transition">Kategori Lain</a>
+            </div>
+            <a href="emergency-contacts.html" class="mt-8 text-red-600 dark:text-red-400 font-bold text-sm hover:underline italic">Pusat Kecemasan Terdekat (A&E)</a>
+        </div>
+    </main>
+<div id="chatWidget" class="fixed bottom-6 right-6 z-[60]">
+    <button onclick="toggleChat()" class="bg-[#0094D4] hover:bg-[#007bb1] text-white p-4 rounded-full shadow-2xl transition-all transform hover:scale-110 flex items-center justify-center">
+        <svg id="chatIcon" class="w-8 h-8 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+        </svg>
+    </button>
+
+    <div id="chatBox" class="hidden absolute bottom-20 right-0 w-85 md:w-96 bg-white dark:bg-slate-800 rounded-3xl shadow-2xl border border-gray-100 dark:border-slate-700 overflow-hidden flex flex-col transition-all">
+        <div class="bg-[#0094D4] p-5 text-white flex justify-between items-center">
+            <div>
+                <h3 class="font-bold text-lg flex items-center">
+                    <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse mr-2"></span>
+                    Assistant AI
+                </h3>
+                <p class="text-xs opacity-80">Aktif & Sedia Membantu</p>
+            </div>
+            <button onclick="toggleChat()" class="text-white hover:rotate-90 transition-transform text-2xl">×</button>
+        </div>
+
+        <div class="p-4 bg-gray-50 dark:bg-slate-900 h-80 overflow-y-auto flex flex-col space-y-4" id="chatMessages">
+            <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl rounded-tl-none shadow-sm self-start max-w-[85%] text-sm text-gray-700 dark:text-gray-300">
+                Hai! Saya Allergy Assistant. Ada sebarang soalan tentang alahan atau rawatan?
+            </div>
+        </div>
+
+        <div class="p-4 bg-white dark:bg-slate-800 border-t dark:border-slate-700">
+            <div class="flex space-x-2">
+                <input type="text" id="aiQuery" placeholder="Taip soalan anda..." 
+                       class="flex-1 bg-gray-100 dark:bg-slate-900 border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-400 dark:text-white"
+                       onkeypress="if(event.key === 'Enter') askAI()">
+                <button onclick="askAI()" class="bg-[#1A2E44] dark:bg-blue-600 text-white p-3 rounded-xl hover:scale-105 transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  // --- SKRIP TEMA (TAMBAH YANG INI) ---
+function toggleTheme() {
+    const html = document.documentElement;
+    if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+    } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+    }
+}
+
+// Check tema setiap kali page di-load supaya tak "reset" jadi light balik
+if (localStorage.getItem('theme') === 'dark') {
+    document.documentElement.classList.add('dark');
+} else {
+    document.documentElement.classList.remove('dark');
+}
+
+// --- KOD CHAT AWAK (KEKALKAN) ---
+function toggleChat() {
+    const chatBox = document.getElementById('chatBox');
+    chatBox.classList.toggle('hidden');
+}
+
+function askAI() {
+    const input = document.getElementById('aiQuery');
+    const messageContainer = document.getElementById('chatMessages');
+    
+    if (input.value.trim() !== "") {
+        const userDiv = document.createElement('div');
+        userDiv.className = "bg-blue-500 text-white p-3 rounded-2xl rounded-tr-none self-end max-w-[85%] text-sm shadow-sm";
+        userDiv.textContent = input.value;
+        messageContainer.appendChild(userDiv);
+
+        setTimeout(() => {
+            const aiDiv = document.createElement('div');
+            aiDiv.className = "bg-white dark:bg-slate-800 p-3 rounded-2xl rounded-tl-none shadow-sm self-start max-w-[85%] text-sm text-gray-700 dark:text-gray-300 border dark:border-slate-700";
+            aiDiv.textContent = "Terima kasih bertanya. Pakar kami sedang meneliti soalan anda tentang '" + input.value + "'. Sila rujuk seksyen Kecemasan jika ini adalah kes kritikal.";
+            messageContainer.appendChild(aiDiv);
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+        }, 1000);
+
+        input.value = "";
+        messageContainer.scrollTop = messageContainer.scrollHeight;
+    }
+}
+</script>
+    <footer class="bg-slate-900 dark:bg-slate-950 text-white py-16 px-6 text-center transition-colors">
+        <h2 class="text-2xl font-black mb-4">AllergyGuide.My</h2>
+        <p class="text-[10px] opacity-50 mb-8 max-w-xl mx-auto italic leading-relaxed">
+            PENAFIAN: Informasi ini bukan pengganti nasihat perubatan profesional. Jika berlaku reaksi anafilaksis (sesak nafas/bengkak muka), hubungi 999 atau ke hospital dengan segera.
+        </p>
+        <div class="text-[10px] opacity-30 tracking-widest uppercase font-bold">© 2026 Keselamatan Pesakit Diutamakan</div>
+    </footer>
+<script>
+// API Key Mistral AI
+        const MISTRAL_API_KEY = "60WHWYBuGH4fxqEiYXQ8vI4UE1C27xdn";
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('-translate-x-full');
+            document.getElementById('sidebarOverlay').classList.toggle('hidden');
+        }
+
+        function toggleChat() {
+            document.getElementById('chatBox').classList.toggle('hidden');
+        }
+
+        function addMessage(message, type) {
+            const chatMessages = document.getElementById('chatMessages');
+            const style = type === 'user' ? "bg-[#0094D4] text-white ml-auto" : "bg-white text-gray-700 border";
+            chatMessages.innerHTML += `<div class="${style} p-3 rounded-2xl max-w-[85%] text-sm mb-2 shadow-sm">${message}</div>`;
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        async function askAI() {
+            const inputField = document.getElementById('aiQuery');
+            const chatMessages = document.getElementById('chatMessages');
+            const userText = inputField.value.trim();
+            if (!userText) return;
+
+            addMessage(userText, 'user');
+            inputField.value = "";
+
+            const loadingId = "loading-" + Date.now();
+            chatMessages.innerHTML += `<div id="${loadingId}" class="text-sm text-gray-400 italic mb-2">Mistral sedang menaip...</div>`;
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            try {
+                const response = await fetch("https://api.mistral.ai/v1/chat/completions", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                        "Authorization": `Bearer ${MISTRAL_API_KEY}`
+                    },
+                    body: JSON.stringify({
+                        model: "mistral-tiny",
+                        messages: [
+                            { role: "system", content: "Anda pakar AllergyAssistant. Jawab dalam Bahasa Melayu." },
+                            { role: "user", content: userText }
+                        ]
+                    })
+                });
+
+                const data = await response.json();
+                document.getElementById(loadingId).remove();
+
+                if (data.choices && data.choices[0].message.content) {
+                    addMessage(data.choices[0].message.content, 'ai');
+                } else if (data.error) {
+                    throw new Error(data.error.message);
+                }
+            } catch (error) {
+                console.error("Ralat Mistral:", error);
+                const loadingEl = document.getElementById(loadingId);
+                if (loadingEl) loadingEl.innerHTML = `<span class="text-red-500 text-xs italic">Ralat: ${error.message}</span>`;
+            }
+        }
+// --- LOGIK DARK MODE ---
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const sunIcon = document.getElementById('sunIcon');
+            const moonIcon = document.getElementById('moonIcon');
+
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.theme = 'light';
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+            } else {
+                html.classList.add('dark');
+                localStorage.theme = 'dark';
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+            }
+        }
+        function toggleDarkMode() {
+    const isDark = document.documentElement.classList.toggle('dark');
+    // Simpan pilihan: 'dark' jika aktif, 'light' jika tidak
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+}
+
+        // Semak setting asal bila page load
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            document.getElementById('sunIcon').classList.remove('hidden');
+            document.getElementById('moonIcon').classList.add('hidden');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        // --- LOGIK SIDEBAR ---
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            }
+        }</script>
+        <script>
+// ===== DARK MODE FINAL (CLEAN) =====
+function toggleDarkMode() {
+    const html = document.documentElement;
+    const isDark = html.classList.toggle('dark');
+
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    updateThemeIcons();
+}
+
+function updateThemeIcons() {
+    const isDark = document.documentElement.classList.contains('dark');
+    const sunIcon = document.getElementById('sunIcon');
+    const moonIcon = document.getElementById('moonIcon');
+
+    if (!sunIcon || !moonIcon) return;
+
+    if (isDark) {
+        sunIcon.classList.remove('hidden');
+        moonIcon.classList.add('hidden');
+    } else {
+        sunIcon.classList.add('hidden');
+        moonIcon.classList.remove('hidden');
+    }
+}
+
+document.addEventListener("DOMContentLoaded", updateThemeIcons);
+</script>
+</body>
+</html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Admin | AllergyGuide.my</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; display: none; transition: background-color 0.3s; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+    </style>
+    <script>
+        tailwind.config = { darkMode: 'class' }
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</head>
+<body class="bg-[#F3F4F6] dark:bg-slate-950 flex transition-colors duration-300">
+
+    <aside class="w-64 h-screen bg-[#1A2E44] dark:bg-slate-900 text-white flex flex-col sticky top-0 border-r dark:border-slate-800">
+        <div class="p-8 text-center md:text-left">
+            <h1 class="text-xl font-black tracking-tighter">ALLERGY<span class="text-[#0094D4]">GUIDE</span></h1>
+            <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">Global Controller</p>
+        </div>
+        
+        <nav class="flex-1 px-4 space-y-2 custom-scrollbar overflow-y-auto">
+            <button onclick="showTab('clinics')" id="btn-clinics" class="w-full flex items-center space-x-3 p-4 bg-[#0094D4] rounded-2xl font-bold transition text-white">
+                <span>🏥 Urus Klinik</span>
+            </button>
+            <button onclick="showTab('website')" id="btn-website" class="w-full flex items-center space-x-3 p-4 hover:bg-white/10 rounded-2xl font-medium text-gray-400 hover:text-white transition">
+                <span>🌐 Kandungan Web</span>
+            </button>
+            
+            <div class="pt-4 pb-2 px-4 text-[10px] font-bold text-gray-500 uppercase tracking-widest">Tetapan</div>
+            <button onclick="toggleDarkMode()" class="w-full flex items-center space-x-3 p-4 hover:bg-white/10 rounded-2xl font-medium text-gray-400 hover:text-white transition">
+                <span id="theme-icon">🌙</span> <span id="theme-text">Mod Gelap</span>
+            </button>
+        </nav>
+
+        <div class="p-4 border-t border-white/10 space-y-2 bg-[#16273a] dark:bg-slate-900/50">
+            <div id="user-info" class="text-[10px] text-gray-400 px-2 truncate text-center italic">Memuatkan...</div>
+            <button onclick="handleLogout()" class="w-full flex items-center justify-center space-x-2 p-3 bg-red-500/10 text-red-400 rounded-xl font-bold hover:bg-red-50 hover:text-white transition">
+                <span>🚪 Log Keluar</span>
+            </button>
+        </div>
+    </aside>
+
+    <main class="flex-1 p-10 overflow-y-auto h-screen">
+        
+        <div id="clinics" class="tab-content active fade-in">
+            <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
+                <div>
+                    <h2 class="text-3xl font-extrabold text-[#1A2E44] dark:text-white">Pengurusan Klinik</h2>
+                    <p class="text-gray-500 dark:text-slate-400">Data untuk halaman 'Doctor Finder'.</p>
+                </div>
+                <button onclick="openModal()" class="bg-[#0094D4] text-white px-8 py-4 rounded-2xl font-bold shadow-lg hover:bg-blue-600 transition transform hover:scale-105">+ Tambah Klinik</button>
+            </header>
+
+            <div class="bg-white dark:bg-slate-900 rounded-[32px] shadow-sm border border-gray-100 dark:border-slate-800 overflow-hidden text-sm">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead class="bg-gray-50 dark:bg-slate-800 text-gray-400 uppercase font-bold text-[10px]">
+                            <tr>
+                                <th class="px-8 py-4">Nama Klinik</th>
+                                <th class="px-8 py-4">Negeri</th>
+                                <th class="px-8 py-4 text-center">Tindakan</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminClinicList" class="divide-y dark:divide-slate-800"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="website" class="tab-content fade-in">
+            <header class="mb-10">
+                <h2 class="text-3xl font-extrabold text-[#1A2E44] dark:text-white">Kandungan Website</h2>
+                <p class="text-gray-500 dark:text-slate-400">Kemaskini maklumat aplikasi secara masa nyata.</p>
+            </header>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="lg:col-span-2 bg-white dark:bg-slate-900 p-8 rounded-[32px] border dark:border-slate-800 mt-4">
+                    <h3 class="font-bold text-lg mb-4 text-[#0094D4]">🖼️ Urus Poster & Infografik</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-6 bg-blue-50 dark:bg-slate-800/50 p-6 rounded-2xl">
+                        <input type="text" id="pTitle" placeholder="Tajuk Poster" class="p-3 rounded-xl border dark:bg-slate-900 dark:text-white dark:border-slate-700 outline-none">
+                        <input type="text" id="pImageUrl" placeholder="Link Gambar (URL)" class="p-3 rounded-xl border dark:bg-slate-900 dark:text-white dark:border-slate-700 outline-none">
+                        <input type="text" id="pDownloadUrl" placeholder="Link Download" class="p-3 rounded-xl border dark:bg-slate-900 dark:text-white dark:border-slate-700 outline-none">
+                        <button onclick="addPoster()" class="bg-[#0094D4] text-white rounded-xl font-bold hover:bg-blue-600 transition">Tambah Poster</button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm">
+                            <thead class="bg-gray-50 dark:bg-slate-800 text-[10px] uppercase font-bold text-gray-400">
+                                <tr>
+                                    <th class="px-4 py-3">Poster</th>
+                                    <th class="px-4 py-3 text-center">Tindakan</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminPosterList" class="divide-y dark:divide-slate-800"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 bg-white dark:bg-slate-900 p-8 rounded-[32px] border dark:border-slate-800 mt-4">
+                    <h3 class="font-bold text-lg mb-4 text-[#0094D4]">🎥 Urus Video Panduan</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-6 bg-gray-50 dark:bg-slate-800/50 p-6 rounded-2xl">
+                        <input type="text" id="vTitle" placeholder="Tajuk Video" class="p-3 rounded-xl border dark:bg-slate-900 dark:text-white dark:border-slate-700 outline-none">
+                        <select id="vCategory" class="p-3 rounded-xl border dark:bg-slate-900 dark:text-white dark:border-slate-700 outline-none font-semibold">
+                            <option value="Alahan Kulit">Alahan Kulit</option>
+                            <option value="Pernafasan">Pernafasan</option>
+                            <option value="Alahan Makanan">Alahan Makanan</option>
+                        </select>
+                        <input type="text" id="vUrl" placeholder="ID Video YouTube" class="p-3 rounded-xl border dark:bg-slate-900 dark:text-white dark:border-slate-700 outline-none">
+                        <button onclick="addVideo()" class="bg-[#0094D4] text-white rounded-xl font-bold hover:bg-blue-600">Tambah Video</button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm">
+                            <thead class="bg-gray-50 dark:bg-slate-800 text-[10px] uppercase font-bold text-gray-400">
+                                <tr>
+                                    <th class="px-4 py-3">Tajuk / Kategori</th>
+                                    <th class="px-4 py-3">ID Video</th>
+                                    <th class="px-4 py-3 text-center">Tindakan</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminVideoList" class="divide-y dark:divide-slate-800"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="clinicModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-[100] backdrop-blur-sm p-4">
+        <div class="bg-white dark:bg-slate-900 w-full max-w-lg rounded-[40px] p-10 shadow-2xl border dark:border-slate-800">
+            <h3 class="text-2xl font-black mb-6 dark:text-white">Daftar Klinik Baru</h3>
+            <div class="space-y-4">
+                <input type="text" id="cName" placeholder="Nama Klinik" class="w-full p-4 bg-gray-50 dark:bg-slate-800 dark:text-white rounded-2xl border dark:border-slate-700 outline-none">
+                <select id="cState" class="w-full p-4 bg-gray-50 dark:bg-slate-800 dark:text-white rounded-2xl border dark:border-slate-700 outline-none">
+                    <option value="Kuala Lumpur">Kuala Lumpur</option>
+                    <option value="Selangor">Selangor</option>
+                    <option value="Johor">Johor</option>
+                    <option value="Pulau Pinang">Pulau Pinang</option>
+                </select>
+                <input type="text" id="cAddress" placeholder="Kawasan" class="w-full p-4 bg-gray-50 dark:bg-slate-800 dark:text-white rounded-2xl border dark:border-slate-700 outline-none">
+                <input type="text" id="cPhone" placeholder="No. Telefon" class="w-full p-4 bg-gray-50 dark:bg-slate-800 dark:text-white rounded-2xl border dark:border-slate-700 outline-none">
+                <div class="flex space-x-4 pt-4">
+                    <button onclick="closeModal()" class="flex-1 bg-gray-100 dark:bg-slate-800 dark:text-slate-400 py-4 rounded-2xl font-bold">Batal</button>
+                    <button id="btnSave" class="flex-1 bg-[#0094D4] text-white py-4 rounded-2xl font-bold shadow-lg">Simpan Data</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCCPVG-1Cn6MRt9c-AWUMSiJOf_i4DqdTA",
+            authDomain: "allergyguide-c9ed9.firebaseapp.com",
+            databaseURL: "https://allergyguide-c9ed9-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "allergyguide-c9ed9",
+            appId: "1:364105086732:web:4f45ed7968f9af0ced7b29"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const auth = getAuth(app);
+
+        // Security Check
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                document.getElementById('user-info').innerText = user.email;
+                document.body.style.display = "flex";
+            } else {
+                window.location.replace("login.html");
+            }
+        });
+
+        // Logout
+        window.handleLogout = () => confirm("Log keluar?") && signOut(auth);
+
+        // --- 1. CLINIC LOGIC ---
+        document.getElementById('btnSave').onclick = () => {
+            const name = document.getElementById('cName').value;
+            const state = document.getElementById('cState').value;
+            const address = document.getElementById('cAddress').value;
+            const phone = document.getElementById('cPhone').value;
+            if(!name) return alert("Isi Nama Klinik.");
+            push(ref(db, 'clinics'), { name, state, address, phone }).then(() => { closeModal(); });
+        };
+
+        onValue(ref(db, 'clinics'), (snap) => {
+            const list = document.getElementById('adminClinicList');
+            list.innerHTML = "";
+            snap.forEach(child => {
+                const c = child.val();
+                list.innerHTML += `<tr><td class="px-8 py-4 font-bold dark:text-white">${c.name}</td><td class="px-8 py-4 text-gray-500">${c.state}</td><td class="px-8 py-4 text-center"><button onclick="deleteData('clinics/${child.key}')" class="text-red-500 font-bold">Padam</button></td></tr>`;
+            });
+        });
+
+        // --- 2. POSTER LOGIC ---
+        window.addPoster = () => {
+            const title = document.getElementById('pTitle').value;
+            const imageUrl = document.getElementById('pImageUrl').value;
+            const downloadUrl = document.getElementById('pDownloadUrl').value;
+            if(!title || !imageUrl) return alert("Isi sekurang-kurangnya Tajuk & Gambar.");
+            push(ref(db, 'posters'), { title, imageUrl, downloadUrl }).then(() => {
+                document.getElementById('pTitle').value = "";
+                document.getElementById('pImageUrl').value = "";
+                document.getElementById('pDownloadUrl').value = "";
+                alert("Poster Berjaya!");
+            });
+        };
+
+        onValue(ref(db, 'posters'), (snap) => {
+            const list = document.getElementById('adminPosterList');
+            list.innerHTML = "";
+            snap.forEach(child => {
+                const p = child.val();
+                list.innerHTML += `<tr><td class="px-4 py-3 dark:text-white font-bold">${p.title}</td><td class="px-4 py-3 text-center"><button onclick="deleteData('posters/${child.key}')" class="text-red-500 font-bold">Padam</button></td></tr>`;
+            });
+        });
+
+        // --- 3. VIDEO LOGIC ---
+        window.addVideo = () => {
+            const title = document.getElementById('vTitle').value;
+            const category = document.getElementById('vCategory').value;
+            const url = document.getElementById('vUrl').value;
+            if(!url) return alert("Masukkan ID Video YouTube.");
+            push(ref(db, 'videoTips'), { title, category, url }).then(() => {
+                document.getElementById('vTitle').value = "";
+                document.getElementById('vUrl').value = "";
+                alert("Video Berjaya!");
+            });
+        };
+
+        onValue(ref(db, 'videoTips'), (snap) => {
+            const list = document.getElementById('adminVideoList');
+            list.innerHTML = "";
+            snap.forEach(child => {
+                const v = child.val();
+                list.innerHTML += `<tr><td class="px-4 py-3 font-bold dark:text-white">${v.title || 'Tanpa Tajuk'}<br><span class="text-xs text-blue-500">${v.category}</span></td><td class="px-4 py-3 font-mono text-xs">${v.url}</td><td class="px-4 py-3 text-center"><button onclick="deleteData('videoTips/${child.key}')" class="text-red-500 font-bold">Padam</button></td></tr>`;
+            });
+        });
+
+        window.deleteData = (path) => confirm("Padam data ini?") && remove(ref(db, path));
+    </script>
+
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            const isCl = tabId === 'clinics';
+            document.getElementById('btn-clinics').className = isCl ? "w-full flex items-center space-x-3 p-4 bg-[#0094D4] rounded-2xl font-bold transition text-white" : "w-full flex items-center space-x-3 p-4 hover:bg-white/10 rounded-2xl font-medium text-gray-400 transition";
+            document.getElementById('btn-website').className = !isCl ? "w-full flex items-center space-x-3 p-4 bg-[#0094D4] rounded-2xl font-bold transition text-white" : "w-full flex items-center space-x-3 p-4 hover:bg-white/10 rounded-2xl font-medium text-gray-400 transition";
+        }
+        function openModal() { document.getElementById('clinicModal').style.display = 'flex'; }
+        function closeModal() { document.getElementById('clinicModal').style.display = 'none'; }
+        function toggleDarkMode() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            updateThemeUI(isDark);
+        }
+        function updateThemeUI(isDark) {
+            document.getElementById('theme-icon').innerText = isDark ? '☀️' : '🌙';
+            document.getElementById('theme-text').innerText = isDark ? 'Mod Terang' : 'Mod Gelap';
+        }
+    </script>
+    <script>     // --- LOGIK DARK MODE ---
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const sunIcon = document.getElementById('sunIcon');
+            const moonIcon = document.getElementById('moonIcon');
+
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.theme = 'light';
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+            } else {
+                html.classList.add('dark');
+                localStorage.theme = 'dark';
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+            }
+        }
+        function toggleDarkMode() {
+    const isDark = document.documentElement.classList.toggle('dark');
+    // Simpan pilihan: 'dark' jika aktif, 'light' jika tidak
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+}
+
+        // Semak setting asal bila page load
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            document.getElementById('sunIcon').classList.remove('hidden');
+            document.getElementById('moonIcon').classList.add('hidden');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        // --- LOGIK SIDEBAR ---
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            }
+        }</script>
+        <script>
+// ===== DARK MODE FINAL (CLEAN) =====
+function toggleDarkMode() {
+    const html = document.documentElement;
+    const isDark = html.classList.toggle('dark');
+
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    updateThemeIcons();
+}
+
+function updateThemeIcons() {
+    const isDark = document.documentElement.classList.contains('dark');
+    const sunIcon = document.getElementById('sunIcon');
+    const moonIcon = document.getElementById('moonIcon');
+
+    if (!sunIcon || !moonIcon) return;
+
+    if (isDark) {
+        sunIcon.classList.remove('hidden');
+        moonIcon.classList.add('hidden');
+    } else {
+        sunIcon.classList.add('hidden');
+        moonIcon.classList.remove('hidden');
+    }
+}
+
+document.addEventListener("DOMContentLoaded", updateThemeIcons);
+</script>
+</body>
+</html>

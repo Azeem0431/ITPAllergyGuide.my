@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Admin | AllergyGuide.my</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        // SKRIP PEMERHATI TEMA (Menjaga konsistensi pilihan user)
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .fade-in { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Glassmorphism effect - Kekal gelap untuk estetika Admin */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-200 flex items-center justify-center h-screen overflow-hidden">
+
+    <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-blue-600/10 rounded-full blur-[120px]"></div>
+    <div class="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-[#0094D4]/10 rounded-full blur-[120px]"></div>
+
+    <div class="glass-panel p-10 rounded-[2.5rem] shadow-2xl w-full max-w-md fade-in relative z-10 mx-6">
+        <div class="text-center mb-10">
+            <h1 class="text-2xl font-black text-white tracking-tight uppercase">
+                Allergy<span class="text-[#0094D4]">Guide</span> Admin
+            </h1>
+            <p class="text-slate-400 text-[10px] mt-2 font-black uppercase tracking-[0.2em]">Restricted Access Area</p>
+        </div>
+
+        <div id="error-msg" class="hidden mb-6 p-4 bg-rose-500/10 text-rose-500 text-xs font-bold rounded-2xl text-center border border-rose-500/20"></div>
+
+        <div class="space-y-5">
+            <div>
+                <label class="text-[10px] font-black uppercase text-slate-500 ml-2 tracking-widest">Email Admin</label>
+                <input type="email" id="login-email" placeholder="admin@allergyguide.my" 
+                    class="w-full mt-2 p-4 bg-slate-800/50 border border-slate-700 rounded-2xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-600">
+            </div>
+            <div>
+                <label class="text-[10px] font-black uppercase text-slate-500 ml-2 tracking-widest">Kata Laluan</label>
+                <input type="password" id="login-password" placeholder="••••••••" 
+                    class="w-full mt-2 p-4 bg-slate-800/50 border border-slate-700 rounded-2xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-600">
+            </div>
+            
+            <button onclick="handleLogin()" id="loginBtn" 
+                class="w-full bg-[#0094D4] text-white p-4 rounded-2xl font-black hover:bg-blue-500 transition shadow-lg shadow-blue-900/20 uppercase tracking-widest text-xs mt-4">
+                Log Masuk Sistem
+            </button>
+
+            <div class="relative py-4">
+                <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-800"></div></div>
+                <div class="relative flex justify-center text-[10px] uppercase font-black tracking-widest">
+                    <span class="bg-[#0f172a] px-4 text-slate-500">Security Check</span>
+                </div>
+            </div>
+
+            <button onclick="handleGoogleLogin()" 
+                class="w-full bg-slate-800 border border-slate-700 text-white p-4 rounded-2xl font-bold hover:bg-slate-700 transition flex items-center justify-center space-x-3 shadow-sm">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5">
+                <span class="text-xs uppercase tracking-widest">Google Auth</span>
+            </button>
+        </div>
+
+        <div class="mt-10 text-center">
+            <a href="index.html" class="text-[10px] text-slate-500 hover:text-[#0094D4] transition font-black uppercase tracking-[0.2em]">
+                ← Kembali ke Laman Utama
+            </a>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { 
+            getAuth, 
+            signInWithEmailAndPassword, 
+            signInWithPopup, 
+            GoogleAuthProvider 
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCCPVG-1Cn6MRt9c-AWUMSiJOf_i4DqdTA",
+            authDomain: "allergyguide-c9ed9.firebaseapp.com",
+            projectId: "allergyguide-c9ed9",
+            appId: "1:364105086732:web:4f45ed7968f9af0ced7b29"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        const errorDiv = document.getElementById('error-msg');
+
+        window.handleLogin = async function() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const btn = document.getElementById('loginBtn');
+
+            if(!email || !password) { showErr("Sila isi semua ruangan!"); return; }
+
+            btn.innerText = "AUTHENTICATING...";
+            btn.disabled = true;
+            errorDiv.classList.add('hidden');
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                window.location.href = "admin-dashboard.html";
+            } catch (error) {
+                btn.innerText = "Log Masuk Sistem";
+                btn.disabled = false;
+                showErr("AKSES DITOLAK: Emel atau kata laluan salah!");
+                console.error(error);
+            }
+        }
+
+        window.handleGoogleLogin = async function() {
+            try {
+                await signInWithPopup(auth, provider);
+                window.location.href = "admin-dashboard.html";
+            } catch (error) {
+                showErr("GAGAL LOG MASUK DENGAN GOOGLE.");
+                console.error(error);
+            }
+        }
+
+        function showErr(msg) {
+            errorDiv.innerText = msg;
+            errorDiv.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
