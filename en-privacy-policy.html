@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | AllergyGuide.my</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        // THEME WATCHER
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; transition: background-color 0.3s, color 0.3s; }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .privacy-gradient {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+        .dark .privacy-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-700 dark:bg-slate-950 dark:text-slate-300">
+
+   <body class="bg-[#F8FAFC] dark:bg-[#020617] text-gray-800 dark:text-slate-300">
+
+
+<div id="sidebarOverlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/50 z-[60] hidden transition-opacity"></div>
+
+<aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-white dark:bg-slate-800 z-[70] shadow-2xl border-r border-slate-200 dark:border-slate-700 transform -translate-x-full transition-transform duration-300 ease-in-out lg:shadow-none font-sans">
+    <div class="p-6 h-full flex flex-col">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-xl font-black text-[#0094D4]">Main Menu</h2>
+            <button onclick="toggleSidebar()" class="text-gray-400 hover:text-red-500 text-3xl transition focus:outline-none">&times;</button>
+        </div>
+        
+        <nav class="space-y-2 flex-1 overflow-y-auto pr-2 custom-scrollbar">
+            <a href="en-FirstPage.html" class="flex items-center space-x-3 p-3 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-[#0094D4] font-bold transition">
+                <span class="text-lg">›</span>
+                <span>HOME</span>
+            </a>
+
+            <div x-data="{ open: false }" class="space-y-1">
+                <button @click="open = !open" class="w-full flex items-center justify-between p-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700 font-bold transition focus:outline-none">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-lg">›</span>
+                        <span>ALLERGY CATEGORIES</span>
+                    </div>
+                    <svg :class="open ? 'rotate-180' : ''" class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+
+                <div x-show="open" x-collapse class="pl-9 space-y-2 pb-2">
+                    <a href="en-food-details.html" class="block text-sm text-gray-500 dark:text-gray-400 hover:text-[#0094D4] transition font-medium">Food Allergies</a>
+                    <a href="en-skin-details.html" class="block text-sm text-gray-500 dark:text-gray-400 hover:text-[#0094D4] transition font-medium">Skin Allergies</a>
+                    <a href="en-respiratory-details.html" class="block text-sm text-gray-500 dark:text-gray-400 hover:text-[#0094D4] transition font-medium">Respiratory Allergies</a>
+                    <a href="en-pet-details.html" class="block text-sm text-gray-500 dark:text-gray-400 hover:text-[#0094D4] transition font-medium">Pet Allergies</a>
+                    <a href="en-eye-details.html" class="block text-sm text-gray-500 dark:text-gray-400 hover:text-[#0094D4] transition font-medium">Eye Allergies</a>
+                    <a href="en-drug-details.html" class="block text-sm text-gray-500 dark:text-gray-400 hover:text-[#0094D4] transition font-medium">Drug Allergies</a>
+                </div>
+            </div>
+
+            <a href="en-tips-treatment.html" class="flex items-center space-x-3 p-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700 font-bold transition">
+                <span class="text-lg">›</span>
+                <span>TIPS & TREATMENT</span>
+            </a>
+
+            <a href="admin-dashboard.html" class="flex items-center space-x-3 p-3 rounded-xl text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20 font-bold transition">
+                <span class="text-lg">›</span>
+                <span>ADMIN DASHBOARD</span>
+            </a>
+            
+            <hr class="my-4 border-gray-100 dark:border-slate-700">
+            
+            <div class="pt-2">
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest px-3 mb-2">Emergency</p>
+                <a href="en-emergency-contacts.html" class="flex items-center space-x-3 p-3 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 font-bold transition">
+                    <span>☎️ Call 999</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+</aside>
+
+    <header class="bg-white dark:bg-slate-800 border-b dark:border-slate-700 sticky top-0 z-50 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <button onclick="toggleSidebar()" class="p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg transition focus:outline-none">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+                <h1 class="text-xl md:text-2xl font-black text-[#0094D4] tracking-tight">AllergyGuide.My</h1>
+            </div>
+
+            <nav class="hidden lg:flex items-center space-x-6 font-bold text-gray-600 dark:text-gray-300 text-sm uppercase tracking-wide">
+                <a href="en-FirstPage.html" class="hover:text-[#0094D4]">Home</a>
+                <a href="en-categories.html" class="hover:text-[#0094D4] transition">Allergy Categories</a>
+                <a href="en-tips-treatment.html" class="hover:text-[#0094D4] transition">Tips & Treatment</a>
+            </nav>
+
+            <div class="flex items-center space-x-2 md:space-x-4">
+                <a href="login.html" class="hidden sm:flex items-center gap-1 text-gray-500 hover:text-[#0094D4] transition text-xs font-bold border-r pr-4 dark:border-slate-700">
+                    <span>⚙️</span> ADMIN
+                </a>
+                <button onclick="toggleDarkMode()" class="p-2 rounded-full bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-yellow-400 transition-all">
+                    <svg id="moonIcon" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                </button>
+              <div class="flex bg-gray-100 dark:bg-slate-700 p-1 rounded-full border border-gray-200 dark:border-slate-600">
+                    <a href="privacy-policy.html" class="px-2 py-1 rounded-full text-[10px] font-bold text-gray-500 dark:text-gray-400">BM</a>
+                    
+                    <a href="en-privacy-policy.html" class="px-2 py-1 rounded-full text-[10px] font-bold bg-white dark:bg-slate-600 text-blue-600 dark:text-blue-400 shadow-sm">EN</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="privacy-gradient py-20 px-6 border-b border-slate-200 dark:border-slate-800 relative overflow-hidden">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-[0.03] dark:opacity-10"></div>
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <span class="bg-blue-500/10 text-blue-600 dark:text-blue-400 px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.2em] border border-blue-200 dark:border-blue-500/20">Legal & Transparency</span>
+            <h2 class="text-4xl md:text-6xl font-black text-slate-900 dark:text-white mt-6 mb-4 tracking-tighter">Privacy Policy</h2>
+            <p class="text-slate-500 dark:text-slate-400 text-lg max-w-2xl mx-auto font-medium">Our commitment to protecting your personal data and digital privacy.</p>
+        </div>
+    </section>
+
+    <main class="max-w-4xl mx-auto px-6 py-16">
+        <div class="glass-card rounded-[3rem] p-8 md:p-16 space-y-16 shadow-2xl shadow-slate-200 dark:shadow-none">
+            
+            <section class="relative">
+                <div class="flex items-start gap-6">
+                    <span class="text-5xl font-black text-slate-200 dark:text-slate-800">01</span>
+                    <div>
+                        <h3 class="text-2xl font-black text-slate-900 dark:text-white mb-4 tracking-tight">Introduction</h3>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
+                            At <strong class="text-[#0094D4]">AllergyGuide.my</strong>, we highly value your privacy. This Privacy Policy explains the types of information we collect, how it is used, and the security measures we take to protect your data.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="relative">
+                <div class="flex items-start gap-6">
+                    <span class="text-5xl font-black text-slate-200 dark:text-slate-800">02</span>
+                    <div>
+                        <h3 class="text-2xl font-black text-slate-900 dark:text-white mb-4 tracking-tight">Information We Collect</h3>
+                        <p class="text-slate-600 dark:text-slate-400 mb-6 font-medium">We collect information in two main categories:</p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-white dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                                <h4 class="text-blue-600 dark:text-blue-400 font-bold mb-2">Voluntary Information</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Name and email address you provide through contact forms or registration.</p>
+                            </div>
+                            <div class="bg-white dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                                <h4 class="text-blue-600 dark:text-blue-400 font-bold mb-2">Usage Data</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">IP address, browser type, and navigation patterns for website performance analysis.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bg-blue-50 dark:bg-[#0094D4]/5 p-8 rounded-[2rem] border border-blue-100 dark:border-[#0094D4]/20">
+                <h3 class="text-xl font-black text-blue-600 dark:text-[#0094D4] mb-6 uppercase tracking-widest text-center">3. Use of Information</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                    <div class="space-y-2">
+                        <div class="text-2xl">🎯</div>
+                        <p class="text-xs font-bold text-slate-600 dark:text-slate-300 italic">Relevant Content</p>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="text-2xl">📈</div>
+                        <p class="text-xs font-bold text-slate-600 dark:text-slate-300 italic">Quality Improvement</p>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="text-2xl">💬</div>
+                        <p class="text-xs font-bold text-slate-600 dark:text-slate-300 italic">Feedback</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="bg-rose-50 dark:bg-rose-500/5 p-8 rounded-[2rem] border border-rose-100 dark:border-rose-500/20 relative overflow-hidden">
+                    <div class="absolute -right-4 -top-4 text-6xl opacity-10 rotate-12">⚠️</div>
+                    <h3 class="text-2xl font-black text-rose-600 dark:text-rose-500 mb-4 tracking-tight">4. Medical Disclaimer</h3>
+                    <p class="text-slate-600 dark:text-rose-200/70 text-sm leading-relaxed font-medium italic">
+                        All information provided on <strong>AllergyGuide.my</strong> is for educational purposes only and <span class="text-rose-600 dark:text-rose-500 underline decoration-2">is not a substitute for professional medical advice</span>.
+                    </p>
+                </div>
+            </section>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <section>
+                    <h3 class="text-xl font-black text-slate-900 dark:text-white mb-3 tracking-tight">5. Security</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
+                        We do not sell or transfer your personal information to third parties. Encryption measures are implemented to ensure the integrity of your data.
+                    </p>
+                </section>
+                <section>
+                    <h3 class="text-xl font-black text-slate-900 dark:text-white mb-3 tracking-tight">6. External Links</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
+                        We may include links to official sites such as <span class="text-[#0094D4] font-bold">KKM</span>. However, we are not responsible for the privacy policies of those third parties.
+                    </p>
+                </section>
+            </div>
+
+            <hr class="border-slate-200 dark:border-slate-800">
+
+            <footer class="text-center space-y-8">
+                <div class="space-y-1">
+                    <p class="text-slate-400 text-[10px] font-black uppercase tracking-widest">Last Updated</p>
+                    <p class="text-slate-900 dark:text-white font-bold">25 February 2026</p>
+                </div>
+                
+                <div class="pt-4">
+                    <a href="en-FirstPage.html" class="group inline-flex items-center gap-3 bg-slate-900 dark:bg-slate-800 hover:bg-black dark:hover:bg-slate-700 text-white px-10 py-5 rounded-full font-black text-[10px] uppercase tracking-widest transition shadow-xl">
+                        <span class="group-hover:-translate-x-1 transition duration-300">←</span> Back to Homepage
+                    </a>
+                </div>
+            </footer>
+        </div>
+    </main>
+<div id="chatWidget" class="fixed bottom-6 right-6 z-[60]">
+    <button onclick="toggleChat()" class="bg-[#0094D4] hover:bg-[#007bb1] text-white p-4 rounded-full shadow-2xl transition-all transform hover:scale-110 flex items-center justify-center">
+        <svg id="chatIcon" class="w-8 h-8 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+        </svg>
+    </button>
+
+    <div id="chatBox" class="hidden absolute bottom-20 right-0 w-85 md:w-96 bg-white dark:bg-slate-800 rounded-3xl shadow-2xl border border-gray-100 dark:border-slate-700 overflow-hidden flex flex-col transition-all">
+        <div class="bg-[#0094D4] p-5 text-white flex justify-between items-center">
+            <div>
+                <h3 class="font-bold text-lg flex items-center">
+                    <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse mr-2"></span>
+                    AI Assistant
+                </h3>
+                <p class="text-xs opacity-80">Active & Ready to Help</p>
+            </div>
+            <button onclick="toggleChat()" class="text-white hover:rotate-90 transition-transform text-2xl">×</button>
+        </div>
+
+        <div class="p-4 bg-gray-50 dark:bg-slate-900 h-80 overflow-y-auto flex flex-col space-y-4" id="chatMessages">
+            <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl rounded-tl-none shadow-sm self-start max-w-[85%] text-sm text-gray-700 dark:text-gray-300">
+                Hi! I'm the Allergy Assistant. Any questions about allergies or treatment?
+            </div>
+        </div>
+
+        <div class="p-4 bg-white dark:bg-slate-800 border-t dark:border-slate-700">
+            <div class="flex space-x-2">
+                <input type="text" id="aiQuery" placeholder="Type your question..." 
+                       class="flex-1 bg-gray-100 dark:bg-slate-900 border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-400 dark:text-white"
+                       onkeypress="if(event.key === 'Enter') askAI()">
+                <button onclick="askAI()" class="bg-[#1A2E44] dark:bg-blue-600 text-white p-3 rounded-xl hover:scale-105 transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  // --- THEME SCRIPT (ADD THIS) ---
+function toggleTheme() {
+    const html = document.documentElement;
+    if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+    } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+    }
+}
+
+// Check theme each time page loads so it doesn't "reset" to light
+if (localStorage.getItem('theme') === 'dark') {
+    document.documentElement.classList.add('dark');
+} else {
+    document.documentElement.classList.remove('dark');
+}
+
+// --- YOUR CHAT CODE (KEEP) ---
+function toggleChat() {
+    const chatBox = document.getElementById('chatBox');
+    chatBox.classList.toggle('hidden');
+}
+
+function askAI() {
+    const input = document.getElementById('aiQuery');
+    const messageContainer = document.getElementById('chatMessages');
+    
+    if (input.value.trim() !== "") {
+        const userDiv = document.createElement('div');
+        userDiv.className = "bg-blue-500 text-white p-3 rounded-2xl rounded-tr-none self-end max-w-[85%] text-sm shadow-sm";
+        userDiv.textContent = input.value;
+        messageContainer.appendChild(userDiv);
+
+        setTimeout(() => {
+            const aiDiv = document.createElement('div');
+            aiDiv.className = "bg-white dark:bg-slate-800 p-3 rounded-2xl rounded-tl-none shadow-sm self-start max-w-[85%] text-sm text-gray-700 dark:text-gray-300 border dark:border-slate-700";
+            aiDiv.textContent = "Thank you for asking. Our specialists are reviewing your question about '" + input.value + "'. Please refer to the Emergency section if this is a critical case.";
+            messageContainer.appendChild(aiDiv);
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+        }, 1000);
+
+        input.value = "";
+        messageContainer.scrollTop = messageContainer.scrollHeight;
+    }
+}
+</script>
+    <footer class="py-12 text-center border-t border-slate-200 dark:border-slate-900">
+        <p class="text-slate-400 dark:text-slate-600 text-[10px] font-black uppercase tracking-[0.4em]">© 2026 AllergyGuide.my • All Rights Reserved</p>
+    </footer>
+<script>    
+// Mistral AI API Key
+        const MISTRAL_API_KEY = "60WHWYBuGH4fxqEiYXQ8vI4UE1C27xdn";
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('-translate-x-full');
+            document.getElementById('sidebarOverlay').classList.toggle('hidden');
+        }
+
+        function toggleChat() {
+            document.getElementById('chatBox').classList.toggle('hidden');
+        }
+
+        function addMessage(message, type) {
+            const chatMessages = document.getElementById('chatMessages');
+            const style = type === 'user' ? "bg-[#0094D4] text-white ml-auto" : "bg-white text-gray-700 border";
+            chatMessages.innerHTML += `<div class="${style} p-3 rounded-2xl max-w-[85%] text-sm mb-2 shadow-sm">${message}</div>`;
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        async function askAI() {
+            const inputField = document.getElementById('aiQuery');
+            const chatMessages = document.getElementById('chatMessages');
+            const userText = inputField.value.trim();
+            if (!userText) return;
+
+            addMessage(userText, 'user');
+            inputField.value = "";
+
+            const loadingId = "loading-" + Date.now();
+            chatMessages.innerHTML += `<div id="${loadingId}" class="text-sm text-gray-400 italic mb-2">Mistral is typing...</div>`;
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            try {
+                const response = await fetch("https://api.mistral.ai/v1/chat/completions", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                        "Authorization": `Bearer ${MISTRAL_API_KEY}`
+                    },
+                    body: JSON.stringify({
+                        model: "mistral-tiny",
+                        messages: [
+                            { role: "system", content: "You are an AllergyAssistant expert. Answer in English." },
+                            { role: "user", content: userText }
+                        ]
+                    })
+                });
+
+                const data = await response.json();
+                document.getElementById(loadingId).remove();
+
+                if (data.choices && data.choices[0].message.content) {
+                    addMessage(data.choices[0].message.content, 'ai');
+                } else if (data.error) {
+                    throw new Error(data.error.message);
+                }
+            } catch (error) {
+                console.error("Mistral Error:", error);
+                const loadingEl = document.getElementById(loadingId);
+                if (loadingEl) loadingEl.innerHTML = `<span class="text-red-500 text-xs italic">Error: ${error.message}</span>`;
+            }
+        }
+// --- DARK MODE LOGIC ---
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const sunIcon = document.getElementById('sunIcon');
+            const moonIcon = document.getElementById('moonIcon');
+
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.theme = 'light';
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+            } else {
+                html.classList.add('dark');
+                localStorage.theme = 'dark';
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+            }
+        }
+        function toggleDarkMode() {
+    const isDark = document.documentElement.classList.toggle('dark');
+    // Save preference: 'dark' if active, 'light' otherwise
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+}
+
+        // Check initial setting on page load
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            document.getElementById('sunIcon').classList.remove('hidden');
+            document.getElementById('moonIcon').classList.add('hidden');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        // --- SIDEBAR LOGIC ---
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            }
+        }</script>
+        <script>
+// ===== FINAL DARK MODE (CLEAN) =====
+function toggleDarkMode() {
+    const html = document.documentElement;
+    const isDark = html.classList.toggle('dark');
+
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    updateThemeIcons();
+}
+
+function updateThemeIcons() {
+    const isDark = document.documentElement.classList.contains('dark');
+    const sunIcon = document.getElementById('sunIcon');
+    const moonIcon = document.getElementById('moonIcon');
+
+    if (!sunIcon || !moonIcon) return;
+
+    if (isDark) {
+        sunIcon.classList.remove('hidden');
+        moonIcon.classList.add('hidden');
+    } else {
+        sunIcon.classList.add('hidden');
+        moonIcon.classList.remove('hidden');
+    }
+}
+
+document.addEventListener("DOMContentLoaded", updateThemeIcons);
+</script>
+</body>
+</html>
