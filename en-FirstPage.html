@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | AllergyGuide.my</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' }
+    </script>
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        })();
+    </script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; transition: background-color 0.3s ease; margin: 0; padding: 0; }
+        .hero-gradient { background: linear-gradient(135deg, #0094D4 0%, #0076aa 100%); }
+        .dark .hero-gradient { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); }
+        #sidebar { transition: transform 0.3s ease-in-out; }
+    </style>
+</head>
+<body class="bg-[#F8FAFC] text-gray-800 dark:bg-slate-900 dark:text-gray-100">
+
+<div id="sidebarOverlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/50 z-[60] hidden transition-opacity"></div>
+
+<aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-white dark:bg-slate-800 z-[70] shadow-2xl border-r border-slate-200 dark:border-slate-700 transform -translate-x-full transition-transform duration-300 ease-in-out lg:shadow-none font-sans">
+    <div class="p-6 h-full flex flex-col">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-xl font-black text-[#0094D4]">Main Menu</h2>
+            <button onclick="toggleSidebar()" class="text-gray-400 hover:text-red-500 text-3xl transition focus:outline-none">&times;</button>
+        </div>
+        
+        <nav class="space-y-2 flex-1 overflow-y-auto pr-2 custom-scrollbar">
+            <a href="en-FirstPage.HTML" class="flex items-center space-x-3 p-3 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-[#0094D4] font-bold transition">
+                <span class="text-lg">›</span>
+                <span>HOME</span>
+            </a>
+
+            <div x-data="{ open: false }" class="space-y-1">
+                <button @click="open = !open" class="w-full flex items-center justify-between p-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700 font-bold transition focus:outline-none">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-lg">›</span>
+                        <span>ALLERGY CATEGORIES</span>
+                    </div>
+                    <svg :class="open ? 'rotate-180' : ''" class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+
+                <div x-show="open" x-collapse class="pl-9 space-y-2 pb-2">
+                    <a href="en-food-details.html" class="block text-sm text-gray-500 dark:text-gray-400 hover:text-[#0094D4] transition font-medium">Food Allergies</a>
+                    <a href="en-skin-details.html" class="block text-sm text-gray-500 dark:text-gray-400 hover:text-[#0094D4] transition font-medium">Skin Allergies</a>
+                    <a href="en-respiratory-details.html" class="block text-sm text-gray-500 dark:text-gray-400 hover:text-[#0094D4] transition font-medium">Respiratory Allergies</a>
+                    <a href="en-pet-details.html" class="block text-sm text-gray-500 dark:text-gray-400 hover:text-[#0094D4] transition font-medium">Pet Allergies</a>
+                    <a href="en-eye-details.html" class="block text-sm text-gray-500 dark:text-gray-400 hover:text-[#0094D4] transition font-medium">Eye Allergies</a>
+                    <a href="en-drug-details.html" class="block text-sm text-gray-500 dark:text-gray-400 hover:text-[#0094D4] transition font-medium">Drug Allergies</a>
+                </div>
+            </div>
+
+            <a href="en-tips-treatment.html" class="flex items-center space-x-3 p-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700 font-bold transition">
+                <span class="text-lg">›</span>
+                <span>TIPS & TREATMENT</span>
+            </a>
+
+            <a href="admin-dashboard.html" class="flex items-center space-x-3 p-3 rounded-xl text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20 font-bold transition">
+                <span class="text-lg">›</span>
+                <span>ADMIN DASHBOARD</span>
+            </a>
+            
+            <hr class="my-4 border-gray-100 dark:border-slate-700">
+            
+            <div class="pt-2">
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest px-3 mb-2">Emergency</p>
+                <a href="en-emergency-contacts.html" class="flex items-center space-x-3 p-3 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 font-bold transition">
+                    <span>☎️ Call 999</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+</aside>
+
+<main id="mainContent" class="min-h-screen transition-all duration-300 bg-white dark:bg-slate-900">
+    <header class="bg-white dark:bg-slate-800 border-b dark:border-slate-700 sticky top-0 z-50 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <button onclick="toggleSidebar()" class="p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg transition focus:outline-none">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+                <h1 class="text-xl md:text-2xl font-black text-[#0094D4] tracking-tight">AllergyGuide.My</h1>
+            </div>
+
+            <nav class="hidden lg:flex items-center space-x-6 font-bold text-gray-600 dark:text-gray-300 text-sm uppercase tracking-wide">
+                <a href="en-FirstPage.HTML" class="text-[#0094D4]">Home</a>
+                <a href="en-categories.html" class="hover:text-[#0094D4] transition">Allergy Categories</a>
+                <a href="en-tips-treatment.html" class="hover:text-[#0094D4] transition">Tips & Treatment</a>
+            </nav>
+
+            <div class="flex items-center space-x-2 md:space-x-4">
+                <a href="login.html" class="hidden sm:flex items-center gap-1 text-gray-500 hover:text-[#0094D4] transition text-xs font-bold border-r pr-4 dark:border-slate-700">
+                    <span>⚙️</span> ADMIN
+                </a>
+                <button onclick="toggleDarkMode()" class="p-2 rounded-full bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-yellow-400 transition-all">
+                    <svg id="moonIcon" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                </button>
+               <div class="flex bg-gray-100 dark:bg-slate-700 p-1 rounded-full border border-gray-200 dark:border-slate-600">
+                    <a href="index.html" class="px-2 py-1 rounded-full text-[10px] font-bold text-gray-500 dark:text-gray-400">BM</a>
+                    
+                    <a href="en-FirstPage.HTML" class="px-2 py-1 rounded-full text-[10px] font-bold bg-white dark:bg-slate-600 text-blue-600 dark:text-blue-400 shadow-sm">EN</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+   <section class="hero-gradient text-white py-20 px-6 relative overflow-hidden transition-all duration-500">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center relative z-10">
+        <div class="md:w-1/2 space-y-6">
+            <span class="bg-white/20 dark:bg-blue-500/20 text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest">
+                Malaysia Health Guide
+            </span>
+            <h2 class="text-5xl md:text-6xl font-black leading-tight">
+                Understand Your Allergy, <br>Protect Yourself.
+            </h2>
+            <p class="text-blue-100 dark:text-slate-300 text-lg max-w-lg">
+                Get accurate information on various types of allergies for your well-being.
+            </p>
+
+           <div class="max-w-md pt-4 relative">
+
+    <div class="relative group">
+        <input 
+            type="text" 
+            id="searchInput" 
+            placeholder="Search allergy type..."
+            onkeyup="performSearch()"
+            class="w-full px-6 py-4 rounded-2xl text-gray-800 dark:bg-slate-800 dark:text-white dark:border-slate-600 shadow-2xl focus:outline-none focus:ring-4 focus:ring-white/20"
+        >
+
+        <button 
+            onclick="performSearch()"
+            class="absolute right-2 top-2 bottom-2 bg-[#0094D4] hover:bg-[#0076aa] px-6 rounded-xl text-white font-bold transition-colors">
+            Search
+        </button>
+    </div>
+
+    <!-- Dropdown Result -->
+    <div id="searchDropdown" class="hidden absolute w-full bg-white dark:bg-slate-800 shadow-2xl rounded-2xl mt-2 z-50 overflow-hidden">
+        <ul id="searchResults"></ul>
+    </div>
+
+</div>
+        </div>
+
+        <div class="md:w-1/2 mt-12 md:mt-0 flex justify-center relative animate-float">
+    <div x-data="{ 
+            activeSlide: 1, 
+            slides: [1, 2, 3],
+            init() { 
+                setInterval(() => { 
+                    this.activeSlide = this.activeSlide === 3 ? 1 : this.activeSlide + 1 
+                }, 5000) // Changed to 5 seconds
+            } 
+        }" 
+        class="relative p-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-[2.5rem] shadow-2xl w-full max-w-[500px]">
+        
+        <div class="relative overflow-hidden rounded-[1.8rem] bg-slate-800 aspect-square shadow-inner">
+            
+            <img x-show="activeSlide === 1" 
+                 x-transition:enter="transition transform duration-1000 ease-out"
+                 x-transition:enter-start="opacity-0 scale-110 translate-x-10"
+                 x-transition:enter-end="opacity-100 scale-100 translate-x-0"
+                 x-transition:leave="transition transform duration-1000 ease-in"
+                 x-transition:leave-start="opacity-100 scale-100"
+                 x-transition:leave-end="opacity-0 scale-90 -translate-x-10"
+                 src="poster555.png" 
+                 class="absolute inset-0 w-full h-full object-cover">
+
+            <img x-show="activeSlide === 2" 
+                 x-transition:enter="transition transform duration-1000 ease-out"
+                 x-transition:enter-start="opacity-0 scale-110 translate-x-10"
+                 x-transition:enter-end="opacity-100 scale-100 translate-x-0"
+                 x-transition:leave="transition transform duration-1000 ease-in"
+                 x-transition:leave-start="opacity-100 scale-100"
+                 x-transition:leave-end="opacity-0 scale-90 -translate-x-10"
+                 src="poster444.png" 
+                 class="absolute inset-0 w-full h-full object-cover">
+
+            <img x-show="activeSlide === 3" 
+                 x-transition:enter="transition transform duration-1000 ease-out"
+                 x-transition:enter-start="opacity-0 scale-110 translate-x-10"
+                 x-transition:enter-end="opacity-100 scale-100 translate-x-0"
+                 x-transition:leave="transition transform duration-1000 ease-in"
+                 x-transition:leave-start="opacity-100 scale-100"
+                 x-transition:leave-end="opacity-0 scale-90 -translate-x-10"
+                 src="poster333.png" 
+                 class="absolute inset-0 w-full h-full object-cover">
+        </div>
+        
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-3">
+            <template x-for="slide in slides" :key="slide">
+                <div @click="activeSlide = slide" 
+                     :class="activeSlide === slide ? 'bg-white w-8' : 'bg-white/30 w-2 hover:bg-white/50 cursor-pointer'" 
+                     class="h-1.5 rounded-full transition-all duration-500"></div>
+            </template>
+        </div>
+
+        <div class="absolute top-8 left-10 flex space-x-2">
+            <div class="w-3 h-3 bg-red-400/90 rounded-full shadow-lg"></div>
+            <div class="w-3 h-3 bg-yellow-400/90 rounded-full shadow-lg"></div>
+            <div class="w-3 h-3 bg-green-400/90 rounded-full shadow-lg"></div>
+        </div>
+    </div>
+
+    <div class="absolute -z-10 w-72 h-72 bg-blue-400/20 rounded-full blur-[100px] -top-10 -right-10"></div>
+    <div class="absolute -z-10 w-64 h-64 bg-cyan-500/10 rounded-full blur-[80px] -bottom-10 -left-10"></div>
+</div>
+    </div>
+</section>
+
+<style>
+    @keyframes floating {
+        0% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-15px) rotate(1deg); }
+        100% { transform: translateY(0px) rotate(0deg); }
+    }
+    .animate-float {
+        animation: floating 10s ease-in-out infinite;
+    }
+</style>
+    <section class="py-20 max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <h3 class="text-3xl font-black text-[#1A2E44] dark:text-blue-400 transition-colors">Why AllergyGuide.My?</h3>
+            <p class="text-gray-500 dark:text-gray-400 mt-4 transition-colors">A trusted health reference source by Malaysians.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white dark:bg-slate-800 p-10 rounded-[32px] shadow-sm border border-gray-100 dark:border-slate-700 hover:shadow-md transition-all">
+                <div class="bg-blue-50 dark:bg-blue-900/30 w-14 h-14 rounded-2xl flex items-center justify-center mb-6">
+                    <svg class="w-8 h-8 text-[#0094D4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                </div>
+                <h4 class="text-xl font-bold text-[#1A2E44] dark:text-white mb-3 transition-colors">Authentic Information</h4>
+                <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed transition-colors">Info gathered from trusted health sources.</p>
+            </div>
+
+            <div class="bg-white dark:bg-slate-800 p-10 rounded-[32px] shadow-sm border border-gray-100 dark:border-slate-700 hover:shadow-md transition-all">
+                <div class="bg-green-50 dark:bg-green-900/30 w-14 h-14 rounded-2xl flex items-center justify-center mb-6">
+                    <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                </div>
+                <h4 class="text-xl font-bold text-[#1A2E44] dark:text-white mb-3 transition-colors">Complete Categories</h4>
+                <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed transition-colors">Organized by allergy type to facilitate your search.</p>
+            </div>
+
+            <a href="en-tips-treatment.html" class="bg-white dark:bg-slate-800 p-10 rounded-[32px] shadow-sm border border-gray-100 dark:border-slate-700 hover:shadow-md hover:border-orange-200 dark:hover:border-orange-500/50 transition-all group text-left">
+                <div class="bg-orange-50 dark:bg-orange-900/30 w-14 h-14 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-orange-100 transition">
+                    <svg class="w-8 h-8 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h4 class="text-xl font-bold text-[#1A2E44] dark:text-white mb-3 transition-colors">Quick Guide</h4>
+                <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed transition-colors">Learn emergency steps for allergic reactions. <span class="text-orange-500 font-bold">Click here →</span></p>
+            </a>
+        </div>
+    </section>
+</main>
+
+<script>
+    
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        const main = document.getElementById('mainContent');
+        sidebar.classList.toggle('-translate-x-full');
+        overlay.classList.toggle('hidden');
+    }
+
+    function toggleDarkMode() {
+        document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+    }
+</script>
+
+   <section class="bg-blue-50 dark:bg-slate-800/50 py-12 px-6 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div class="p-4 rounded-2xl hover:bg-white dark:hover:bg-slate-700 transition-all shadow-sm md:shadow-none">
+            <h4 class="text-4xl font-black text-[#0094D4]">1 in 5</h4>
+            <p class="text-gray-600 dark:text-gray-400 text-sm mt-2">Malaysian children experience Eczema</p>
+        </div>
+        <div class="p-4 rounded-2xl hover:bg-white dark:hover:bg-slate-700 transition-all shadow-sm md:shadow-none">
+            <h4 class="text-4xl font-black text-[#0094D4]">400+</h4>
+            <p class="text-gray-600 dark:text-gray-400 text-sm mt-2">Types of drugs can trigger allergies</p>
+        </div>
+        <div class="p-4 rounded-2xl hover:bg-white dark:hover:bg-slate-700 transition-all shadow-sm md:shadow-none">
+            <h4 class="text-4xl font-black text-[#0094D4]">24/7</h4>
+            <p class="text-gray-600 dark:text-gray-400 text-sm mt-2">Access to emergency information</p>
+        </div>
+        <div class="p-4 rounded-2xl hover:bg-white dark:hover:bg-slate-700 transition-all shadow-sm md:shadow-none">
+            <h4 class="text-4xl font-black text-[#0094D4]">Top 3</h4>
+            <p class="text-gray-600 dark:text-gray-400 text-sm mt-2">Allergies: Seafood, Nuts, Milk</p>
+        </div>
+    </div>
+</section>
+
+<section class="py-20 bg-white dark:bg-slate-900 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="flex justify-between items-end mb-12">
+            <div>
+                <h3 class="text-3xl font-black text-[#1A2E44] dark:text-blue-400">Popular Categories</h3>
+                <p class="text-gray-500 dark:text-gray-400 mt-2">Explore guides by specific allergy type.</p>
+            </div>
+            <a href="en-categories.html" class="text-[#0094D4] font-bold hover:underline flex items-center gap-1">
+                See All <span class="text-xl">→</span>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="group relative overflow-hidden rounded-[32px] h-96 shadow-xl border dark:border-slate-700">
+                <img src="makanan2.jpg" class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-8">
+                    <h4 class="text-white text-2xl font-bold">Food Allergies</h4>
+                    <p class="text-gray-300 text-sm mt-2">Nuts, Seafood, Gluten & Dairy Products.</p>
+                </div>
+            </div>
+
+            <div class="group relative overflow-hidden rounded-[32px] h-96 shadow-xl border dark:border-slate-700">
+                <img src="penafasan2.jpg" class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-8">
+                    <h4 class="text-white text-2xl font-bold">Respiratory</h4>
+                    <p class="text-gray-300 text-sm mt-2">Dust mites, Pet dander & Pollen.</p>
+                </div>
+            </div>
+
+            <div class="group relative overflow-hidden rounded-[32px] h-96 shadow-xl border dark:border-slate-700">
+                <img src="kulit2.jpg" class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-8">
+                    <h4 class="text-white text-2xl font-bold">Skin & Eczema</h4>
+                    <p class="text-gray-300 text-sm mt-2">Rash, Hives & Sensitive skin care.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-20 bg-red-50 dark:bg-red-950/20 transition-colors duration-300 border-y dark:border-red-900/30">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
+        <div class="md:w-1/2">
+            <h3 class="text-3xl font-black text-red-600 dark:text-red-500 mb-6">Anaphylaxis Warning Signs</h3>
+            <div class="space-y-4">
+                <div class="flex items-start gap-4 bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-sm border-l-8 border-red-500 hover:translate-x-2 transition-transform">
+                    <span class="text-3xl">🫁</span>
+                    <div>
+                        <h5 class="font-bold dark:text-white">Severe Shortness of Breath</h5>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Wheezing sound or swelling in throat/tongue.</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4 bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-sm border-l-8 border-red-500 hover:translate-x-2 transition-transform">
+                    <span class="text-3xl">😵‍💫</span>
+                    <div>
+                        <h5 class="font-bold dark:text-white">Dizziness or Fainting</h5>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Sudden, drastic drop in blood pressure.</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4 bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-sm border-l-8 border-red-500 hover:translate-x-2 transition-transform">
+                    <span class="text-3xl">❤️‍🩹</span>
+                    <div>
+                        <h5 class="font-bold dark:text-white">Immediate Action</h5>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Use EpiPen and call <span class="font-bold text-red-600">999</span> immediately!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="md:w-1/2">
+             <div class="relative">
+                <div class="absolute inset-0 bg-red-500 rounded-3xl blur-2xl opacity-20"></div>
+                <img src="anafilaksis2.jpg"
+                " alt="Emergency" class="relative rounded-3xl shadow-2xl border-4 border-white dark:border-slate-800">
+             </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-16 bg-blue-50 dark:bg-slate-800/50 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
+        <div class="md:w-1/2">
+            <h3 class="text-3xl font-black text-[#1A2E44] dark:text-blue-400">Allergy or Intolerance?</h3>
+            <p class="text-gray-600 dark:text-gray-400 mt-4 leading-relaxed">
+                Many people confuse food allergies with food intolerance (like lactose intolerance). Understanding the difference is very important for health management.
+            </p>
+            <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+<div class="max-w-4xl mx-auto mt-8 px-6" x-data="{ active: null }">
+    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Understand the Key Difference</h3>
+    
+    <div class="space-y-4">
+        <div class="border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden bg-white dark:bg-[#0f172a]">
+            <button @click="active = (active === 1 ? null : 1)" class="w-full flex items-center justify-between p-6 text-left hover:bg-slate-50 dark:hover:bg-slate-800 transition">
+                <div class="flex items-center gap-4">
+                    <span class="text-3xl">⚠️</span>
+                    <div>
+                        <span class="block font-black text-red-600 dark:text-red-400 text-lg uppercase">Milk Allergy</span>
+                        <span class="text-sm text-slate-500">Involves Immune System – Medical Emergency</span>
+                    </div>
+                </div>
+                <svg :class="active === 1 ? 'rotate-180' : ''" class="w-6 h-6 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+            
+            <div x-show="active === 1" x-collapse class="p-6 pt-0 border-t border-slate-100 dark:border-slate-800">
+                <div class="grid md:grid-cols-2 gap-6 mt-4">
+                    <div>
+                        <h4 class="font-bold text-slate-800 dark:text-white mb-2">What happens?</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">The immune system mistakenly identifies protein in milk (Casein or Whey) as a dangerous threat and attacks back.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-800 dark:text-white mb-2">Critical Symptoms:</h4>
+                        <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-1">
+                            <li>• Red rash & hives</li>
+                            <li>• Swelling of lips, tongue or throat</li>
+                            <li>• Difficulty breathing (Anaphylaxis)</li>
+                            <li>• Vomiting immediately after drinking</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-4 p-4 bg-red-50 dark:bg-red-950/30 rounded-2xl border border-red-100 dark:border-red-900/50">
+                    <p class="text-xs text-red-700 dark:text-red-400 font-bold italic text-center">Note: Even a small amount can be fatal if not treated immediately.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden bg-white dark:bg-[#0f172a]">
+            <button @click="active = (active === 2 ? null : 2)" class="w-full flex items-center justify-between p-6 text-left hover:bg-slate-50 dark:hover:bg-slate-800 transition">
+                <div class="flex items-center gap-4">
+                    <span class="text-3xl">🤢</span>
+                    <div>
+                        <span class="block font-black text-orange-600 dark:text-orange-400 text-lg uppercase">Lactose Intolerance</span>
+                        <span class="text-sm text-slate-500">Involves Digestive System – Stomach Discomfort</span>
+                    </div>
+                </div>
+                <svg :class="active === 2 ? 'rotate-180' : ''" class="w-6 h-6 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+            
+            <div x-show="active === 2" x-collapse class="p-6 pt-0 border-t border-slate-100 dark:border-slate-800">
+                <div class="grid md:grid-cols-2 gap-6 mt-4">
+                    <div>
+                        <h4 class="font-bold text-slate-800 dark:text-white mb-2">What happens?</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">The body lacks the enzyme <strong>Lactase</strong> to break down milk sugar (Lactose). This undigested sugar ferments in the large intestine.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-800 dark:text-white mb-2">Common Symptoms:</h4>
+                        <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-1">
+                            <li>• Bloating & gas</li>
+                            <li>• Diarrhea</li>
+                            <li>• Stomach cramps</li>
+                            <li>• Nausea but rarely vomiting</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-4 p-4 bg-orange-50 dark:bg-orange-950/30 rounded-2xl border border-orange-100 dark:border-orange-900/50 text-center">
+                    <p class="text-xs text-orange-700 dark:text-orange-400 font-bold">Most Asian adults have some level of lactose intolerance.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+        <div class="md:w-1/2 bg-white dark:bg-slate-800 p-6 rounded-[40px] shadow-xl border border-blue-100 dark:border-slate-700">
+            <div class="relative overflow-hidden rounded-3xl">
+                <img src="lactose1.jpg" class="w-full h-auto" alt="Food">
+                <div class="absolute inset-0 bg-blue-500/10"></div>
+            </div>
+            <p class="text-center italic text-sm text-gray-500 dark:text-gray-400 mt-4">"Knowing the difference can save your life."</p>
+        </div>
+    </div>
+</section>
+
+<section class="py-16 bg-white dark:bg-slate-900 transition-colors duration-300">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+        <div class="bg-orange-50 dark:bg-orange-900/20 p-10 rounded-[40px] border border-orange-100 dark:border-orange-900/30">
+            <div class="inline-block bg-orange-200 dark:bg-orange-800 text-orange-800 dark:text-orange-200 px-4 py-1 rounded-full text-xs font-bold uppercase mb-4">
+                🧬 Science Info
+            </div>
+            <h3 class="text-2xl font-black text-orange-900 dark:text-orange-400 mb-4">Did You Know? (Cross-Reactivity)</h3>
+            <p class="text-orange-800 dark:text-orange-300 italic text-lg leading-relaxed">
+                "If you are allergic to cow's milk, you have a 90% chance of being allergic to goat's milk."
+            </p>
+            <div class="mt-6 text-sm text-orange-700 dark:text-orange-400/80 max-w-2xl mx-auto">
+                This is called <strong>'Cross-Reactivity'</strong> where proteins in different substances are detected as the same thing by your immune system.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-20 bg-gray-50 dark:bg-slate-800/30 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-left mb-12">
+            <h3 class="text-3xl font-black text-[#1A2E44] dark:text-blue-400">Allergy-Free Zone at Home</h3>
+            <p class="text-gray-500 dark:text-gray-400 mt-2">Transform your home into a safe environment.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="group relative overflow-hidden rounded-[32px] h-96 shadow-lg">
+                <img src="bilik1.jpg" class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-8 flex flex-col justify-end">
+                    <div class="bg-blue-500 w-12 h-12 rounded-2xl flex items-center justify-center mb-4 shadow-lg">
+                        <span class="text-2xl">🛏️</span>
+                    </div>
+                    <h4 class="text-white text-xl font-extrabold">Bedroom</h4>
+                    <p class="text-gray-300 text-sm mt-2">Wash sheets with hot water 60°C every week to kill dust mites.</p>
+                </div>
+            </div>
+
+            <div class="group relative overflow-hidden rounded-[32px] h-96 shadow-lg">
+                <img src="langsir3.jpg" class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-8 flex flex-col justify-end">
+                    <div class="bg-blue-500 w-12 h-12 rounded-2xl flex items-center justify-center mb-4 shadow-lg">
+                        <span class="text-2xl">🪟</span>
+                    </div>
+                    <h4 class="text-white text-xl font-extrabold">Curtains</h4>
+                    <p class="text-gray-300 text-sm mt-2">Use thin curtains or blinds that don't trap dust.</p>
+                </div>
+            </div>
+
+            <div class="group relative overflow-hidden rounded-[32px] h-96 shadow-lg">
+                <img src="sofa3.jpg" class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-8 flex flex-col justify-end">
+                    <div class="bg-blue-500 w-12 h-12 rounded-2xl flex items-center justify-center mb-4 shadow-lg">
+                        <span class="text-2xl">🛋️</span>
+                    </div>
+                    <h4 class="text-white text-xl font-extrabold">Living Room</h4>
+                    <p class="text-gray-300 text-sm mt-2">Use wood or tile flooring. Avoid thick fluffy carpets.</p>
+                </div>
+            </div>
+
+            <div class="group relative overflow-hidden rounded-[32px] h-96 shadow-lg">
+                <img src="aircond3.jpg" class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-8 flex flex-col justify-end">
+                    <div class="bg-blue-500 w-12 h-12 rounded-2xl flex items-center justify-center mb-4 shadow-lg">
+                        <span class="text-2xl">🧼</span>
+                    </div>
+                    <h4 class="text-white text-xl font-extrabold">Air Quality</h4>
+                    <p class="text-gray-300 text-sm mt-2">Use HEPA air purifiers to filter pollen and pet dander.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-20 bg-white dark:bg-slate-900 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-6">
+        <h3 class="text-3xl font-black text-[#1A2E44] dark:text-blue-400 mb-10">Tips for Dining Out</h3>
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="relative group">
+                <div class="absolute -inset-2 bg-blue-500 rounded-[40px] opacity-10 group-hover:opacity-20 transition"></div>
+                <img src="restoran3.jpg
+                " class="relative rounded-[32px] shadow-2xl" alt="Dining">
+            </div>
+            <div class="space-y-6">
+                <div class="flex gap-4 items-start">
+                    <span class="bg-green-100 dark:bg-green-900/30 text-green-600 p-2 rounded-lg font-bold">01</span>
+                    <div>
+                        <h5 class="font-bold dark:text-white">Ask About Ingredients in Detail</h5>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Don't be shy to ask if the sauce contains belacan, nuts or gluten.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 items-start">
+                    <span class="bg-green-100 dark:bg-green-900/30 text-green-600 p-2 rounded-lg font-bold">02</span>
+                    <div>
+                        <h5 class="font-bold dark:text-white">Watch for Cross-Contamination</h5>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Ask if the oil used for frying prawns is used to fry other food.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 items-start">
+                    <span class="bg-green-100 dark:bg-green-900/30 text-green-600 p-2 rounded-lg font-bold">03</span>
+                    <div>
+                        <h5 class="font-bold dark:text-white">Bring an Allergy Card</h5>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Prepare a written note (Malay/English) for chef reference.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-16 bg-white dark:bg-slate-900 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-6">
+        <h3 class="text-3xl font-black text-[#1A2E44] dark:text-blue-400 text-center mb-12">How Do Allergies Happen?</h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start text-center mb-16">
+            <div class="group p-6">
+                <div class="w-20 h-20 bg-blue-100 dark:bg-blue-900/30 rounded-3xl rotate-3 group-hover:rotate-0 flex items-center justify-center mx-auto text-3xl transition-all duration-300 shadow-sm">🦠</div>
+                <h4 class="font-bold text-xl mt-6 dark:text-white">1. Exposure</h4>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-3 leading-relaxed">Allergen (dust, pollen, or food protein) enters the body. The immune system begins to "recognize" this substance as an enemy.</p>
+            </div>
+            
+            <div class="group p-6">
+                <div class="w-20 h-20 bg-red-100 dark:bg-red-900/30 rounded-3xl -rotate-3 group-hover:rotate-0 flex items-center justify-center mx-auto text-3xl transition-all duration-300 shadow-sm">🛡️</div>
+                <h4 class="font-bold text-xl mt-6 dark:text-white">2. IgE Antibodies</h4>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-3 leading-relaxed">The body produces specific antibodies called <strong>Immunoglobulin E (IgE)</strong> that attach to mast cells (immune cells).</p>
+            </div>
+            
+            <div class="group p-6">
+                <div class="w-20 h-20 bg-yellow-100 dark:bg-yellow-900/30 rounded-3xl rotate-3 group-hover:rotate-0 flex items-center justify-center mx-auto text-3xl transition-all duration-300 shadow-sm">💥</div>
+                <h4 class="font-bold text-xl mt-6 dark:text-white">3. Histamine Reaction</h4>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-3 leading-relaxed">Upon re-exposure, IgE triggers the release of <strong>Histamine</strong>, a chemical that causes inflammation and allergy symptoms.</p>
+            </div>
+        </div>
+
+        
+
+        <div class="max-w-3xl mx-auto space-y-4" x-data="{ active: null }">
+            <h4 class="text-center font-bold text-gray-400 uppercase tracking-widest text-xs mb-6">Medical Technical Info</h4>
+
+            <div class="border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden bg-slate-50 dark:bg-slate-800/50">
+                <button @click="active = (active === 1 ? null : 1)" class="w-full flex items-center justify-between p-5 text-left transition hover:bg-white dark:hover:bg-slate-800">
+                    <span class="font-bold dark:text-white flex items-center gap-3">
+                        <span class="text-red-500">🧬</span> What are IgE Antibodies?
+                    </span>
+                    <svg :class="active === 1 ? 'rotate-180' : ''" class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <div x-show="active === 1" x-collapse class="px-5 pb-5 text-sm text-gray-600 dark:text-gray-400 leading-relaxed border-t border-slate-200 dark:border-slate-700 pt-4">
+                    IgE is a type of protein produced by the immune system to fight parasites. However, in individuals with allergies, IgE is produced excessively against harmless substances (like nuts or cats). It acts like a "security guard" always ready to attack.
+                </div>
+            </div>
+
+            <div class="border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden bg-slate-50 dark:bg-slate-800/50">
+                <button @click="active = (active === 2 ? null : 2)" class="w-full flex items-center justify-between p-5 text-left transition hover:bg-white dark:hover:bg-slate-800">
+                    <span class="font-bold dark:text-white flex items-center gap-3">
+                        <span class="text-yellow-500">🧪</span> Why Does Histamine Cause Itching?
+                    </span>
+                    <svg :class="active === 2 ? 'rotate-180' : ''" class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <div x-show="active === 2" x-collapse class="px-5 pb-5 text-sm text-gray-600 dark:text-gray-400 leading-relaxed border-t border-slate-200 dark:border-slate-700 pt-4">
+                    Histamine works to dilate blood vessels so that white blood cells can reach the "infection" site quickly. The side effect is that the skin becomes red, swollen, and itchy because skin nerves are aggressively stimulated by this chemical.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-16 bg-slate-900 dark:bg-black text-white rounded-[50px] mx-6 mb-16 shadow-2xl overflow-hidden">
+    <div class="max-w-7xl mx-auto px-10 flex flex-col md:flex-row items-center gap-12">
+        <div class="md:w-1/2">
+            <h3 class="text-3xl font-black mb-6">Allergies at Work?</h3>
+            <p class="text-slate-400 mb-8">Some jobs have a high risk of exposure to industrial allergens that can affect your performance.</p>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="border border-slate-700 p-5 rounded-2xl hover:bg-slate-800 transition">
+                    <p class="font-bold text-lg mb-1">🩺 Healthcare</p>
+                    <p class="text-xs text-slate-500">Allergy to latex gloves (rubber).</p>
+                </div>
+                <div class="border border-slate-700 p-5 rounded-2xl hover:bg-slate-800 transition">
+                    <p class="font-bold text-lg mb-1">👩‍🍳 Bakery</p>
+                    <p class="text-xs text-slate-500">Asthma caused by wheat flour dust.</p>
+                </div>
+            </div>
+        </div>
+        <div class="md:w-1/2 relative">
+            <div class="absolute inset-0 bg-blue-500/20 rounded-3xl blur-3xl"></div>
+            <img src="kerja3.jpg" class="relative rounded-3xl opacity-90 shadow-2xl" alt="Workplace">
+        </div>
+    </div>
+</section>
+
+<section class="py-16 bg-white dark:bg-slate-900 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="mb-10 text-center md:text-left">
+            <h3 class="text-3xl font-black mb-4 dark:text-white">Harmful Cosmetic Ingredients</h3>
+            <p class="text-gray-500 dark:text-gray-400 max-w-2xl">Avoid these if you have sensitive skin to prevent chronic irritation or contact dermatitis:</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            <div class="group bg-slate-50 dark:bg-slate-800 rounded-3xl border border-pink-100 dark:border-pink-900/30 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+                <div class="h-56 overflow-hidden">
+                    <img src="parfum3.jpg" alt="Fragrance" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                </div>
+                <div class="p-5 text-center">
+                    <span class="block px-4 py-2 bg-pink-100/50 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400 rounded-xl font-bold text-sm">
+                        Fragrance/Parfum
+                    </span>
+                </div>
+            </div>
+
+            <div class="group bg-slate-50 dark:bg-slate-800 rounded-3xl border border-pink-100 dark:border-pink-900/30 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+                <div class="h-56 overflow-hidden">
+                    <img src="parabens3.jpg" alt="Parabens" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                </div>
+                <div class="p-5 text-center">
+                    <span class="block px-4 py-2 bg-pink-100/50 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400 rounded-xl font-bold text-sm">
+                        Parabens
+                    </span>
+                </div>
+            </div>
+
+            <div class="group bg-slate-50 dark:bg-slate-800 rounded-3xl border border-pink-100 dark:border-pink-900/30 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+                <div class="h-56 overflow-hidden">
+                    <img src="sulfates3.jpg" alt="Sulfates" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                </div>
+                <div class="p-5 text-center">
+                    <span class="block px-4 py-2 bg-pink-100/50 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400 rounded-xl font-bold text-sm">
+                        Sulfates (SLS)
+                    </span>
+                </div>
+            </div>
+
+            <div class="group bg-slate-50 dark:bg-slate-800 rounded-3xl border border-pink-100 dark:border-pink-900/30 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+                <div class="h-56 overflow-hidden">
+                    <img src="formaldehyde.jpg" alt="Formaldehyde" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                </div>
+                <div class="p-5 text-center">
+                    <span class="block px-4 py-2 bg-pink-100/50 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400 rounded-xl font-bold text-sm">
+                        Formaldehyde
+                    </span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="py-24 bg-white dark:bg-slate-900 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+        <h3 class="text-4xl font-black text-[#1A2E44] dark:text-blue-400 mb-4">Anti-Inflammatory Superfoods</h3>
+        <p class="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto mb-16">
+            Adopt this diet to help calm your immune system naturally.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="group">
+                <div class="relative h-72 rounded-[40px] overflow-hidden shadow-lg transition-all duration-500 group-hover:-translate-y-3">
+                    <img src="honey3.jpg" alt="Honey" class="absolute inset-0 w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-orange-900/90 to-transparent flex items-end justify-center pb-8">
+                        <span class="text-white font-black text-2xl">Raw Honey</span>
+                    </div>
+                </div>
+                <div class="mt-5">
+                    <p class="text-sm font-bold text-orange-600 uppercase tracking-widest">Immunity</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-2 italic px-4">Helps the body build tolerance to local pollen.</p>
+                </div>
+            </div>
+
+            <div class="group">
+                <div class="relative h-72 rounded-[40px] overflow-hidden shadow-lg transition-all duration-500 group-hover:-translate-y-3">
+                    <img src="kurkumin3.jpg" alt="Turmeric" class="absolute inset-0 w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-yellow-900/90 to-transparent flex items-end justify-center pb-8">
+                        <span class="text-white font-black text-2xl">Turmeric</span>
+                    </div>
+                </div>
+                <div class="mt-5">
+                    <p class="text-sm font-bold text-yellow-600 uppercase tracking-widest">Curcumin</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-2 italic px-4">Powerful anti-inflammatory agent for lung health.</p>
+                </div>
+            </div>
+
+            <div class="group">
+                <div class="relative h-72 rounded-[40px] overflow-hidden shadow-lg transition-all duration-500 group-hover:-translate-y-3">
+                    <img src="omega3.jpg" alt="Salmon" class="absolute inset-0 w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-blue-900/90 to-transparent flex items-end justify-center pb-8">
+                        <span class="text-white font-black text-2xl">Omega-3</span>
+                    </div>
+                </div>
+                <div class="mt-5">
+                    <p class="text-sm font-bold text-blue-600 uppercase tracking-widest">Healthy Fats</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-2 italic px-4">Reduces inflammation in skin and airways.</p>
+                </div>
+            </div>
+
+            <div class="group">
+                <div class="relative h-72 rounded-[40px] overflow-hidden shadow-lg transition-all duration-500 group-hover:-translate-y-3">
+                    <img src="berries3.jpg" alt="Berries" class="absolute inset-0 w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-purple-900/90 to-transparent flex items-end justify-center pb-8">
+                        <span class="text-white font-black text-2xl">Berries</span>
+                    </div>
+                </div>
+                <div class="mt-5">
+                    <p class="text-sm font-bold text-purple-600 uppercase tracking-widest">Antioxidant</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-2 italic px-4">Contains quercetin as a natural antihistamine.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="chatWidget" class="fixed bottom-6 right-6 z-[60]">
+    <button onclick="toggleChat()" class="bg-[#0094D4] hover:bg-[#007bb1] text-white p-4 rounded-full shadow-2xl transition-all transform hover:scale-110 flex items-center justify-center">
+        <svg id="chatIcon" class="w-8 h-8 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+        </svg>
+    </button>
+
+    <div id="chatBox" class="hidden absolute bottom-20 right-0 w-85 md:w-96 bg-white dark:bg-slate-800 rounded-3xl shadow-2xl border border-gray-100 dark:border-slate-700 overflow-hidden flex flex-col transition-all">
+        <div class="bg-[#0094D4] p-5 text-white flex justify-between items-center">
+            <div>
+                <h3 class="font-bold text-lg flex items-center">
+                    <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse mr-2"></span>
+                    AI Assistant
+                </h3>
+                <p class="text-xs opacity-80">Active & Ready to Help</p>
+            </div>
+            <button onclick="toggleChat()" class="text-white hover:rotate-90 transition-transform text-2xl">×</button>
+        </div>
+
+        <div class="p-4 bg-gray-50 dark:bg-slate-900 h-80 overflow-y-auto flex flex-col space-y-4" id="chatMessages">
+            <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl rounded-tl-none shadow-sm self-start max-w-[85%] text-sm text-gray-700 dark:text-gray-300">
+                Hi! I'm Allergy Assistant. Any questions about allergies or treatment?
+            </div>
+        </div>
+
+        <div class="p-4 bg-white dark:bg-slate-800 border-t dark:border-slate-700">
+            <div class="flex space-x-2">
+                <input type="text" id="aiQuery" placeholder="Type your question..." 
+                       class="flex-1 bg-gray-100 dark:bg-slate-900 border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-400 dark:text-white"
+                       onkeypress="if(event.key === 'Enter') askAI()">
+                <button onclick="askAI()" class="bg-[#1A2E44] dark:bg-blue-600 text-white p-3 rounded-xl hover:scale-105 transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  // --- THEME SCRIPT (ADD THIS) ---
+function toggleTheme() {
+    const html = document.documentElement;
+    if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+    } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+    }
+}
+
+// Check theme every time page loads so it doesn't "reset" to light
+if (localStorage.getItem('theme') === 'dark') {
+    document.documentElement.classList.add('dark');
+} else {
+    document.documentElement.classList.remove('dark');
+}
+
+// --- YOUR CHAT CODE (KEEP) ---
+function toggleChat() {
+    const chatBox = document.getElementById('chatBox');
+    chatBox.classList.toggle('hidden');
+}
+
+function askAI() {
+    const input = document.getElementById('aiQuery');
+    const messageContainer = document.getElementById('chatMessages');
+    
+    if (input.value.trim() !== "") {
+        const userDiv = document.createElement('div');
+        userDiv.className = "bg-blue-500 text-white p-3 rounded-2xl rounded-tr-none self-end max-w-[85%] text-sm shadow-sm";
+        userDiv.textContent = input.value;
+        messageContainer.appendChild(userDiv);
+
+        setTimeout(() => {
+            const aiDiv = document.createElement('div');
+            aiDiv.className = "bg-white dark:bg-slate-800 p-3 rounded-2xl rounded-tl-none shadow-sm self-start max-w-[85%] text-sm text-gray-700 dark:text-gray-300 border dark:border-slate-700";
+            aiDiv.textContent = "Thank you for asking. Our experts are reviewing your question about '" + input.value + "'. Please refer to the Emergency section if this is a critical case.";
+            messageContainer.appendChild(aiDiv);
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+        }, 1000);
+
+        input.value = "";
+        messageContainer.scrollTop = messageContainer.scrollHeight;
+    }
+}
+</script>
+
+   <footer class="bg-[#0F172A] text-white pt-20 pb-10 px-6 relative overflow-hidden">
+    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#0094D4] to-transparent opacity-50"></div>
+    <div class="absolute -top-24 -right-24 w-96 h-96 bg-[#0094D4] opacity-[0.03] rounded-full blur-3xl"></div>
+    <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-blue-600 opacity-[0.03] rounded-full blur-3xl"></div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+        
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center pb-12 border-b border-gray-800/60 gap-6">
+            <div>
+                <h2 class="text-3xl font-black text-[#0094D4] tracking-tight">AllergyGuide<span class="text-white">.My</span></h2>
+                <p class="text-gray-400 text-sm mt-2">Your trusted guide for allergy awareness and health.</p>
+            </div>
+            <div class="flex space-x-4">
+                <a href="#" class="w-10 h-10 rounded-xl bg-gray-800/50 flex items-center justify-center hover:bg-[#0094D4] hover:-translate-y-1 transition-all duration-300 border border-gray-700">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-xl bg-gray-800/50 flex items-center justify-center hover:bg-pink-600 hover:-translate-y-1 transition-all duration-300 border border-gray-700">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.332 3.608 1.308.975.975 1.247 2.242 1.308 3.607.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.332 2.633-1.308 3.608-.975.975-2.242 1.247-3.607 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.332-3.608-1.308-.975-.975-1.247-2.242-1.308-3.607-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.062-1.366.332-2.633 1.308-3.608.975-.975 2.242-1.247 3.607-1.308 1.266-.058 1.646-.07 4.85-.07m0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.058-1.281.072-1.689.072-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.28-.059-1.689-.073-4.948-.073z"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 py-16">
+            <div>
+                <h4 class="text-white font-bold mb-6 flex items-center uppercase tracking-wider text-xs">
+                    <span class="w-2 h-2 bg-[#0094D4] rounded-full mr-3"></span>Main Categories
+                </h4>
+                <ul class="space-y-4 text-sm text-gray-400">
+                    <li><a href="en-food-details.html" class="hover:text-[#0094D4] hover:pl-2 transition-all duration-300">Food Allergies</a></li>
+                    <li><a href="en-skin-details.html" class="hover:text-[#0094D4] hover:pl-2 transition-all duration-300">Skin Allergies (Eczema)</a></li>
+                    <li><a href="en-respiratory-details.html" class="hover:text-[#0094D4] hover:pl-2 transition-all duration-300">Respiratory Allergies</a></li>
+                    <li><a href="en-drug-details.html" class="hover:text-[#0094D4] hover:pl-2 transition-all duration-300">Drug Allergies</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-6 flex items-center uppercase tracking-wider text-xs">
+                    <span class="w-2 h-2 bg-[#0094D4] rounded-full mr-3"></span>Company
+                </h4>
+                <ul class="space-y-4 text-sm text-gray-400">
+                    <li><a href="about-us.html" class="hover:text-[#0094D4] hover:pl-2 transition-all duration-300">About Us</a></li>
+                    <li><a href="#" class="hover:text-[#0094D4] hover:pl-2 transition-all duration-300">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-6 flex items-center uppercase tracking-wider text-xs">
+                    <span class="w-2 h-2 bg-[#0094D4] rounded-full mr-3"></span>Legal
+                </h4>
+                <ul class="space-y-4 text-sm text-gray-400">
+                    <li><a href="privacy-policy.html" class="hover:text-[#0094D4] hover:pl-2 transition-all duration-300">Privacy Policy</a></li>
+                    <li><a href="terms-conditions.html" class="hover:text-[#0094D4] hover:pl-2 transition-all duration-300">Terms & Conditions</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-6 flex items-center uppercase tracking-wider text-xs">
+                    <span class="w-2 h-2 bg-[#0094D4] rounded-full mr-3"></span>Help
+                </h4>
+                <div class="bg-gray-800/40 p-4 rounded-2xl border border-gray-700/50">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-8 h-8 rounded-lg bg-[#0094D4]/10 flex items-center justify-center text-[#0094D4] shrink-0">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                        </div>
+                        <span class="text-[11px] text-gray-300 break-all leading-relaxed">BPJ241210438@student.kptm.edu.my</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pt-8 border-t border-gray-800">
+            <div class="flex flex-col lg:flex-row gap-8 items-center lg:items-start text-center lg:text-left">
+                <div class="flex-1">
+                    <p class="text-[11px] text-gray-500 leading-relaxed italic max-w-4xl">
+                        <strong class="text-gray-400 not-italic">DISCLAIMER:</strong> The content on AllergyGuide.My is for informational purposes only and is not a substitute for professional medical advice. Always seek guidance from an allergist or qualified health provider for any medical diagnosis or treatment.
+                    </p>
+                </div>
+                <div class="flex flex-col lg:items-end shrink-0">
+                    <p class="text-sm font-bold text-gray-300">© 2026 AllergyGuide.My</p>
+                    <p class="text-[10px] text-gray-500 uppercase tracking-[3px] mt-1">Science • Awareness • Health</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+  <script>
+        // API Key Mistral AI
+        const MISTRAL_API_KEY = "60WHWYBuGH4fxqEiYXQ8vI4UE1C27xdn";
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('-translate-x-full');
+            document.getElementById('sidebarOverlay').classList.toggle('hidden');
+        }
+
+        function toggleChat() {
+            document.getElementById('chatBox').classList.toggle('hidden');
+        }
+
+        function addMessage(message, type) {
+            const chatMessages = document.getElementById('chatMessages');
+            const style = type === 'user' ? "bg-[#0094D4] text-white ml-auto" : "bg-white text-gray-700 border";
+            chatMessages.innerHTML += `<div class="${style} p-3 rounded-2xl max-w-[85%] text-sm mb-2 shadow-sm">${message}</div>`;
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        async function askAI() {
+            const inputField = document.getElementById('aiQuery');
+            const chatMessages = document.getElementById('chatMessages');
+            const userText = inputField.value.trim();
+            if (!userText) return;
+
+            addMessage(userText, 'user');
+            inputField.value = "";
+
+            const loadingId = "loading-" + Date.now();
+            chatMessages.innerHTML += `<div id="${loadingId}" class="text-sm text-gray-400 italic mb-2">Mistral is typing...</div>`;
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            try {
+                const response = await fetch("https://api.mistral.ai/v1/chat/completions", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                        "Authorization": `Bearer ${MISTRAL_API_KEY}`
+                    },
+                    body: JSON.stringify({
+                        model: "mistral-tiny",
+                        messages: [
+                            { role: "system", content: "You are an AllergyAssistant expert. Answer in English." },
+                            { role: "user", content: userText }
+                        ]
+                    })
+                });
+
+                const data = await response.json();
+                document.getElementById(loadingId).remove();
+
+                if (data.choices && data.choices[0].message.content) {
+                    addMessage(data.choices[0].message.content, 'ai');
+                } else if (data.error) {
+                    throw new Error(data.error.message);
+                }
+            } catch (error) {
+                console.error("Mistral Error:", error);
+                const loadingEl = document.getElementById(loadingId);
+                if (loadingEl) loadingEl.innerHTML = `<span class="text-red-500 text-xs italic">Error: ${error.message}</span>`;
+            }
+        }
+
+    
+        function performSearch() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const resultsContainer = document.getElementById('searchResults');
+            const dropdown = document.getElementById('searchDropdown');
+
+            // Keyword Database (Keyword Mapping)
+            const database = [
+    // 1. SEAFOOD & SHELLFISH ALLERGIES
+    { 
+        keywords: [
+            'seafood', 'makanan laut', 'ikan', 'udang', 'ketam', 'sotong', 'fish', 'prawn', 'shrimp', 'crab', 'squid', 'lobster', 
+            'siput sudu', 'gatal lidah', 'mabuk laut', 'bisa', 'hanyir', 'belacan', 'cencaluk', 'budu', 'keropok lekor', 
+            'ikan kering', 'seafood platter', 'tuna', 'salmon', 'bengkak bibir', 'shellfish', 'kerang', 'tiram', 'siput', 
+            'kepah', 'mussel', 'oyster', 'cockle', 'clam', 'scallop', 'siput sedut', 'siput lala', 'krustasea', 'mollusk', 
+            'siput duri', 'siput paku', 'kupang', 'siput gajah', 'kerang bakar', 'makanan bercengkerang', 'ikan masin', 
+            'ikan pari', 'ikan kembung', 'ikan bilis', 'sos tiram', 'oyster sauce', 'sos ikan', 'fish sauce', 'otak-otak', 
+            'sushi', 'sashimi', 'tempura', 'calamari', 'scampi', 'prawn crackers', 'keropok udang', 'udang kering', 
+            'geragau', 'pepahat', 'mentarang', 'siput gonggong', 'siput timba', 'perut memulas', 'muntah seafood', 'muka merah',
+            'ikan tongkol', 'ikan tenggiri', 'ikan kembung', 'ikan selar', 'ikan merah', 'siakap', 'ikan kerapu', 'ikan parang',
+            'ikan keli', 'ikan patin', 'ikan talapia', 'ikan tilapia', 'ikan puyu', 'ikan sepat', 'ikan pekasam', 'telur ikan',
+            'isi ikan', 'bebola ikan', 'fishball', 'fishcake', 'surimi', 'ketam nipah', 'ketam bunga', 'ketam soka', 'soft shell crab',
+            'udang galah', 'udang harimau', 'tiger prawn', 'udang putih', 'udang lipan', 'sotong katak', 'sotong kurita', 'octopus',
+            'jellyfish', 'obor-obor', 'sea urchin', 'landak laut', 'abalone', 'perut ikan', 'sirip yu', 'caviar', 'unagi', 'eel',
+            'ikan terubuk', 'ikan parang', 'ikan kaci', 'ikan bawal', 'ikan senangin', 'merayap gatal', 'toksin laut', 'histamin ikan'
+        ], 
+        url: 'seafood-details.html', 
+        title: 'Seafood & Shellfish Allergies' 
+    },
+
+    // 2. PEANUTS & TREE NUTS ALLERGIES
+    { 
+        keywords: [
+            'kacang', 'peanut', 'tanah', 'epipen', 'anaphylaxis', 'anafilaksis', 'sesak nafas', 'kacang goreng', 
+            'mentega kacang', 'peanut butter', 'legumes', 'bengkak muka', 'kacang tumbuk', 'kuah kacang', 'satay sauce', 
+            'kacang botak', 'kacang parpu', 'rempeyek', 'treenut', 'badam', 'almond', 'gajus', 'hazelnut', 'cashew', 
+            'walnut', 'pistachio', 'macadamia', 'pecan', 'kacang pokok', 'biji gajus', 'kudapan', 'chestnut', 'brazil nut', 
+            'nutella', 'granola', 'trail mix', 'baklava', 'marzipan', 'praline', 'macaron', 'pecan pie', 'kacang kuda', 
+            'chickpeas', 'kacang hijau', 'kacang merah', 'kacang hantu', 'kacang pool', 'minyak kacang', 'peanut oil', 
+            'gianduja', 'nougat', 'butter nut', 'pine nut', 'biji pain', 'kacang cerdik', 'bengkak leher', 'tekak gatal',
+            'kacang soya', 'kacang buncis', 'kacang panjang', 'kacang botol', 'kacang peas', 'sugar snap peas', 'edamame',
+            'tahini', 'biji bijan', 'sesame', 'hummus', 'kacang lobiya', 'kacang gajus panggang', 'kacang pistachio',
+            'mentega badam', 'almond milk', 'susu badam', 'susu gajus', 'kacang dal', 'lentils', 'mung bean', 'black bean',
+            'kacang itik', 'broad beans', 'fava beans', 'kacang soya', 'soya nut', 'garbanzo', 'kacang putih', 'kacang rebus',
+            'kacang norgat', 'kacang salut', 'kacang shandong', 'kacang menggelembung', 'alergi kacang parah'
+        ], 
+        url: 'peanut-details.html', 
+        title: 'Peanut & Tree Nut Allergies' 
+    },
+
+    // 3. MILK & DAIRY ALLERGIES
+    { 
+        keywords: [
+            'susu', 'milk', 'dairy', 'lembu', 'laktosa', 'keju', 'cheese', 'yogurt', 'mentega', 'butter', 'lactose intolerant', 
+            'cirit birit', 'kembung perut', 'formula', 'whey', 'casein', 'creamer', 'krimer', 'susu pekat', 'susu cair', 
+            'ice cream', 'aiskrim', 'custard', 'dadih', 'kalsium', 'gelato', 'sour cream', 'cream cheese', 'whipping cream', 
+            'parmesan', 'mozzarella', 'cheddar', 'susu kambing', 'goat milk', 'susu tepung', 'skim milk', 'low fat milk', 
+            'susu badan', 'susu ibu', 'aliran susu', 'muntah susu', 'colic', 'kembung bayi', 'ekzema susu', 'ruam susu', 
+            'ghee', 'minyak sapi', 'buttermilk', 'bechamel', 'puding', 'milkshake', 'frappuccino', 'latte', 'cappuccino', 
+            'white coffee', 'teh tarik', 'milo', 'horlicks', 'nestum', 'krim kafe', 'susu sejat', 'evaporated milk',
+            'susu kotak', 'susu segar', 'fresh milk', 'full cream', 'susu rendah lemak', 'lactose free', 'susu unta',
+            'susu kuda', 'yakult', 'vitagen', 'betagen', 'susu kultur', 'probiotic drink', 'krim putar', 'non-dairy creamer',
+            'krim tiruan', 'margarin', 'margarine', 'planta', 'buttercup', 'keju keping', 'keju kotej', 'ricotta', 'brie',
+            'blue cheese', 'gouda', 'feta', 'tiramisu', 'cheesecake', 'carbonara', 'alfredo sauce', 'susu masam'
+        ], 
+        url: 'milk-details.html', 
+        title: 'Milk & Dairy Allergies' 
+    },
+
+    // 4. SOY & WHEAT ALLERGIES
+    { 
+        keywords: [
+            'soya', 'soy', 'tofu', 'kicap', 'tauhu', 'tempe', 'fufah', 'soya bean', 'soya milk', 'protein tumbuhan', 
+            'edamame', 'lecithin', 'tauhu fa', 'pucuk sate', 'miso', 'teriyaki', 'kicap masin', 'kicap manis', 'kicap cair', 
+            'kicap pekat', 'tauco', 'fufu', 'soy sauce', 'tofu skin', 'gandum', 'wheat', 'gluten', 'tepung', 'roti', 
+            'bread', 'pasta', 'mie', 'mee', 'barley', 'oat', 'celiac', 'semolina', 'biskut', 'pastri', 'wheat germ', 
+            'malt', 'tepung gandum', 'donat', 'spaghetti', 'macaroni', 'pastry', 'mi segera', 'maggi', 'indomie', 'kuey teow', 
+            'bihun', 'laksa', 'capati', 'roti canai', 'naan', 'pizza', 'burger', 'bun', 'kek', 'cupcake', 'muffin', 'waffle', 
+            'pancake', 'lempeng', 'tepung jagung', 'tepung ubi', 'couscous', 'bulgur', 'rye', 'tepung atta', 'roti putih',
+            'wholemeal', 'roti mil penuh', 'biskut kering', 'cookies', 'croissant', 'danish pastry', 'pita bread', 'tortilla',
+            'wrap', 'lasagna', 'fettuccine', 'penne', 'ramen', 'udon', 'soba', 'dim sum', 'pau', 'dumpling', 'cakoi',
+            'kuih muih', 'karipap', 'pisang goreng', 'tepung goreng pisang', 'tepung tempura', 'bread crumbs', 'serbuk roti',
+            'seitan', 'protein gandum', 'maltodekstrin', 'hydrolyzed vegetable protein', 'hvp', 'kicap jalen', 'kicap mudim'
+        ], 
+        url: 'soy-details.html', 
+        title: 'Soy & Wheat Allergies' 
+    },
+
+    // 5. RESPIRATORY, ASTHMA & SINUSITIS
+    { 
+        keywords: [
+            'asma', 'asthma', 'sesak nafas', 'dada', 'inhaler', 'puffer', 'nebulizer', 'semput', 'lelah', 'wheezing', 
+            'nafas berbunyi', 'oksigen', 'serangan asma', 'ventolin', 'salbutamol', 'mengah', 'dada ketat', 'nafas', 
+            'teknik', 'breathe', 'tenang', 'paru-paru', 'lung', 'deep breathing', 'yoga', 'meditasi', 'stres', 'oksigenasi', 
+            'relaksasi', 'buteyko', 'pranayama', 'nafas dalam', 'kawalan panic attack', 'resdung', 'selesema', 'hidung', 
+            'bersin', 'hama', 'sinus', 'sinusitis', 'rhinitis', 'dust mite', 'hidung tersumbat', 'gatal hidung', 'lendir', 
+            'hingus', 'post-nasal drip', 'hidung berair', 'pagi hari bersin', 'sinus relief', 'hidung merah', 'rongga hidung', 
+            'polip', 'pencemaran', 'jerebu', 'haze', 'asap rokok', 'vape', 'asap ekzos', 'bau busuk', 
+            'wangian kuat', 'perfume', 'pollen', 'debu bunga', 'bulu kapas', 'kapuk', 'tilam lama', 'bantal busuk',
+            'pneumonia', 'bronchitis', 'batuk kering', 'batuk berkahak', 'flu', 'influenza', 'batuk kokol', 'pertussis',
+            'oxygen tank', 'oksigen konsentrator', 'sleep apnea', 'berdengkur', 'snoring', 'hidung gatal kronik',
+            'alahan cuaca', 'udara sejuk', 'aircon', 'penyaman udara', 'habuk kayu', 'habuk simen', 'asap kemenyan',
+            'asap colok', 'asap ubat nyamuk', 'semburan aerosol', 'bau cat', 'bau pelarut', 'thinner', 'ammonia'
+        ], 
+        url: 'asthma-guide.html', 
+        title: 'Asthma & Respiratory Management' 
+    },
+
+    // 6. SKIN, ECZEMA & PET ALLERGIES
+    { 
+        keywords: [
+            'kulit', 'gatal', 'ekzema', 'ruam', 'kurap', 'krim', 'itchy', 'rash', 'eczema', 'dermatitis', 'psoriasis', 
+            'urticaria', 'gegata', 'sopak', 'krim steroid', 'moisturizer', 'hives', 'hydrocortisone', 'aqueous cream', 
+            'kulit sensitif', 'biduran', 'kayap', 'panau', 'jerawat', 'bisul', 'kulit kering', 'kulit mengelupas', 
+            'gelembung air', 'bernanah', 'kudis', 'scabies', 'kutu', 'kucing', 'anjing', 'haiwan', 'bulu', 'pet', 
+            'cat', 'dog', 'fur', 'dander', 'saliva', 'air liur haiwan', 'hamster', 'rabbit', 'arnab', 'bulu burung', 
+            'parrots', 'guinea pig', 'alahan haiwan', 'kutu haiwan', 'najis kucing', 'pasir kucing', 'pet grooming', 
+            'syampu kucing', 'alahan sentuhan', 'lateks', 'latex', 'getah', 'sarung tangan', 'nickel', 'logam', 
+            'gelang tangan', 'jam tangan', 'tali pinggang', 'bahan kimia', 'sabun basuh', 'detergent', 'pelembut kain',
+            'pemutih', 'bleach', 'clorox', 'pencuci lantai', 'pencuci pinggan', 'ubat gigi', 'kosmetik', 'makeup',
+            'gincu', 'lipstick', 'foundation', 'eyeliner', 'maskara', 'pembersih muka', 'facial wash', 'toner', 'serum',
+            'sunblock', 'sunscreen', 'pewangi badan', 'deodorant', 'body wash', 'syampu rambut', 'hair dye', 'pewarna rambut',
+            'henna', 'inai', 'tatu', 'tattoo', 'reaksi kulit', 'kulit terbakar', 'sunburn', 'krim gatal', 'miconazole',
+            'betamethasone', 'clobetasol', 'elomet', 'movelate', 'ezerra', 'cetaphil', 'physiogel', 'sebamed'
+        ], 
+        url: 'skin-details.html', 
+        title: 'Skin & Pet Allergies' 
+    },
+
+    // 7. MEDICATION & CLINICAL TREATMENT
+    { 
+        keywords: [
+            'ubat', 'drug', 'penicillin', 'aspirin', 'antibiotik', 'medicine', 'allergy med', 'paracetamol', 'panadol', 
+            'reaksi ubat', 'kesan sampingan', 'NSAIDs', 'ibuprofen', 'amoxicillin', 'mabuk ubat', 'alah ubat', 'piriton', 
+            'antihistamin', 'loratadine', 'rawatan', 'cetirizine', 'zyrtec', 'clarityne', 'ubat gatal', 'ubat selesema', 
+            'mengantuk', 'non-drowsy', 'fexofenadine', 'telfast', 'bilastine', 'aerius', 'desloratadine', 'syrup', 
+            'pil', 'kapsul', 'dos', 'overdose', 'farmasi', 'pharmacist', 'preskripsi', 'doktor', 'klinik', 'pakar', 
+            'skin specialist', 'hospital', 'dermatologist', 'appointment', 'temujanji', 'pakar alahan', 'allergist', 
+            'pakar kanak-kanak', 'paediatrician', 'klinik swasta', 'kerajaan', 'skin test', 'patch test', 'blood test', 
+            'ujian darah', 'igE test', 'suplemen', 'vitamin', 'probiotik', 'omega', 'vitamin C', 'vitamin D', 'fish oil', 
+            'minyak ikan', 'prebiotik', 'imun sistem', 'multivitamin', 'zinc', 'zink', 'habbatus sauda', 'minyak zaitun', 
+            'garam bukit', 'madu', 'honey', 'curcumin', 'kunyit', 'vaksin', 'vaccine', 'reaksi vaksin', 'booster',
+            'ubat batuk', 'cough syrup', 'breacol', 'benadryl', 'dhasedyl', 'ubat tahan sakit', 'painkiller', 'naproxen',
+            'voltaren', 'diclofenac', 'celebrex', 'arcoxia', 'ponstan', 'ubat darah tinggi', 'ubat kencing manis',
+            'ubat kolesterol', 'herba', 'jamu', 'ubat tradisional', 'homeopathy', 'ayurveda', 'akupuntur', 'bekam'
+        ], 
+        url: 'drug-details.html', 
+        title: 'Medication & Clinical Treatment' 
+    },
+
+    // 8. LIFESTYLE, HOME & RECIPES
+    { 
+        keywords: [
+            'diet', 'makan', 'sihat', 'anti-radang', 'nutrisi', 'anti-inflammatory', 'pemanis tiruan', 'pengawet', 
+            'pewarna', 'MSG', 'makanan proses', 'organik', 'clean eating', 'diet suku suku separuh', 'tanpa pengawet', 
+            'pewarna tiruan', 'tartrazine', 'benzoic acid', 'fast food', 'junk food', 'jajanan', 'keropok', 'air gas', 
+            'carbonated drink', 'sugar free', 'gluten free', 'dairy free', 'egg free', 'vegan', 'vegetarian', 'cuci', 
+            'rumah', 'cleaning', 'habuk', 'hama', 'vacuum', 'dust', 'hepa filter', 'cadar', 'sarung bantal', 'mop', 
+            'kebersihan', 'air purifier', 'penapis udara', 'shampoo karpet', 'disinfectant', 'basmi kuman', 'tips', 
+            'rawatan', 'pertolongan cemas', 'emergency', 'first aid', 'bantuan awal', 'anaphylactic shock', 'tanda bahaya', 
+            'kecemasan', '999', 'rawatan rumah', 'langkah awal', 'resipi', 'masak', 'menu', 'cooking', 'recipe', 
+            'telur', 'ganti telur', 'baking', 'cuka', 'soda', 'egg substitute', 'baking powder', 'vinegar', 'apple puree', 
+            'chia seed', 'banana mash', 'pisang lenyek', 'kek sihat', 'sarapan', 'makan malam', 'snack sihat', 
+            'kategori', 'senarai', 'jenis alahan', 'list', 'index', 'direktori', 'semua topik', 'pilihan',
+            'makanan tin', 'canned food', 'sobat', 'maggie', 'sardin', 'mackerel', 'kacang panggang', 'baked beans',
+            'sos cili', 'sos tomato', 'kicap ikan', 'mayonis', 'mayonnaise', 'thousand island', 'salad dressing',
+            'minyak sayuran', 'vegetable oil', 'minyak sawit', 'palm oil', 'minyak jagung', 'minyak matahari',
+            'aspartame', 'saccharin', 'stevia', 'erythritol', 'sorbitol', 'perasa tambahan', 'penyedap rasa',
+            'ajinomoto', 'stock ayam', 'chicken cube', 'kiub pati ayam', 'pati ikan bilis', 'pewarna kuning 5',
+            'sulfites', 'nitrates', 'nitrites', 'pengawet makanan', 'sodium benzoate', 'potassium sorbate'
+        ], 
+        url: 'categories.html', 
+        title: 'Lifestyle & Home Management' 
+    }
+];
+
+            if (query === "") {
+                dropdown.classList.add('hidden');
+                return;
+            }
+
+            // Filter data based on keywords
+            const filtered = database.filter(item => 
+                item.keywords.some(keyword => keyword.includes(query))
+            );
+
+            dropdown.classList.remove('hidden');
+
+            if (filtered.length > 0) {
+                resultsContainer.innerHTML = filtered.map(item => `
+                    <li class="border-b last:border-none">
+                        <a href="${item.url}" class="block px-6 py-3 hover:bg-blue-50 transition flex justify-between items-center text-left">
+                            <div>
+                                <p class="font-bold text-gray-900">${item.title}</p>
+                                <p class="text-[10px] text-gray-400 uppercase tracking-tighter">Click for more info</p>
+                            </div>
+                            <span class="text-blue-500">→</span>
+                        </a>
+                    </li>
+                `).join('');
+            } else {
+                resultsContainer.innerHTML = `
+                    <li class="px-6 py-4 text-gray-500 italic text-center">
+                        Sorry, keyword "${query}" not found.
+                    </li>
+                `;
+            }
+        }
+
+        // Close dropdown if click outside
+        document.addEventListener('click', function(e) {
+            const dropdown = document.getElementById('searchDropdown');
+            const input = document.getElementById('searchInput');
+            if (dropdown && !dropdown.contains(e.target) && e.target !== input) {
+                dropdown.classList.add('hidden');
+            }
+        });
+    </script>
+
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCCPVG-1Cn6MRt9c-AWUMSiJOf_i4DqdTA",
+        authDomain: "allergyguide-c9ed9.firebaseapp.com",
+        databaseURL: "https://allergyguide-c9ed9-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "allergyguide-c9ed9",
+        storageBucket: "allergyguide-c9ed9.firebasestorage.app",
+        messagingSenderId: "364105086732",
+        appId: "1:364105086732:web:4f45ed7968f9af0ced7b29",
+        measurementId: "G-0B8BW4YTY6"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    onValue(ref(db, 'siteContent'), (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+            if (data.announcement) {
+                const announceEl = document.getElementById('display-announcement');
+                if(announceEl) announceEl.innerText = data.announcement;
+            }
+            if (data.dailyTip && data.dailyTip.title) {
+                const tipBox = document.getElementById('tip-box');
+                const tipTitle = document.getElementById('display-tip-title');
+                if(tipBox) tipBox.classList.remove('hidden');
+                if(tipTitle) tipTitle.innerText = data.dailyTip.title;
+            }
+        }
+    });
+</script>
+
+<script>     // --- DARK MODE LOGIC ---
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const sunIcon = document.getElementById('sunIcon');
+            const moonIcon = document.getElementById('moonIcon');
+
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.theme = 'light';
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+            } else {
+                html.classList.add('dark');
+                localStorage.theme = 'dark';
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+            }
+        }
+        function toggleDarkMode() {
+    const isDark = document.documentElement.classList.toggle('dark');
+    // Save preference: 'dark' if active, 'light' if not
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+}
+
+        // Check initial setting on page load
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            document.getElementById('sunIcon').classList.remove('hidden');
+            document.getElementById('moonIcon').classList.add('hidden');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        // --- SIDEBAR LOGIC ---
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            }
+        }</script>
+        <script>
+// ===== DARK MODE FINAL (CLEAN) =====
+function toggleDarkMode() {
+    const html = document.documentElement;
+    const isDark = html.classList.toggle('dark');
+
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    updateThemeIcons();
+}
+
+function updateThemeIcons() {
+    const isDark = document.documentElement.classList.contains('dark');
+    const sunIcon = document.getElementById('sunIcon');
+    const moonIcon = document.getElementById('moonIcon');
+
+    if (!sunIcon || !moonIcon) return;
+
+    if (isDark) {
+        sunIcon.classList.remove('hidden');
+        moonIcon.classList.add('hidden');
+    } else {
+        sunIcon.classList.add('hidden');
+        moonIcon.classList.remove('hidden');
+    }
+}
+
+document.addEventListener("DOMContentLoaded", updateThemeIcons);
+</script>
+</body>
+</html>
